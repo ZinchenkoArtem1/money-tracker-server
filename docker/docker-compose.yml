@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  db:
+    image: 'postgres:13.1-alpine'
+    container_name: db
+    environment:
+      - POSTGRES_USER=local_user
+      - POSTGRES_PASSWORD=local_password
+      - POSTGRES_DB=money_tracker
+    ports:
+      - "5432:5432"
+    volumes:
+      - money-tracker-db-data:/var/lib/postgresql/data
+      - ./init-schema.sql:/docker-entrypoint-initdb.d/init-schema.sql
+
+volumes:
+  money-tracker-db-data:

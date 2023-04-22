@@ -1,0 +1,1 @@
+create schema money_tracker
