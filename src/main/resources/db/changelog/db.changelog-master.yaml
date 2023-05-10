@@ -4,16 +4,13 @@ databaseChangeLog:
       file: changes/1-creating-users-table.sql
   - include:
       relativeToChangelogFile: true
-      file: changes/2-creating-walet-types-table.sql
+      file: changes/2-creating-currencies-table.sql
   - include:
       relativeToChangelogFile: true
-      file: changes/3-creating-currencies-table.sql
+      file: changes/3-creating-categories-table.sql
   - include:
       relativeToChangelogFile: true
-      file: changes/4-creating-categories-table.sql
+      file: changes/4-creating-wallets-table.sql
   - include:
       relativeToChangelogFile: true
-      file: changes/5-creating-wallets-table.sql
-  - include:
-      relativeToChangelogFile: true
-      file: changes/6-creating-transactions-table.sql
+      file: changes/5-creating-transactions-table.sql

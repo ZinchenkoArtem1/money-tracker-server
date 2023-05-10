@@ -1,5 +1,7 @@
-package com.zinchenko.model;
+package com.zinchenko.transaction;
 
+import com.zinchenko.admin.category.Category;
+import com.zinchenko.wallet.Wallet;
 import jakarta.persistence.*;
 
 import java.util.Date;

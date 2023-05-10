@@ -1,4 +1,4 @@
-package com.zinchenko.model;
+package com.zinchenko.admin.currency;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

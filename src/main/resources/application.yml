@@ -1,7 +1,17 @@
 spring:
   application:
     name: money-tracker
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
   datasource:
     url: jdbc:postgresql://localhost:5432/money_tracker?currentSchema=money_tracker
     username: local_user
     password: local_password
+
+authorization:
+  header: Authorization
+  ttl: 12H

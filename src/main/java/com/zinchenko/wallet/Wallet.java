@@ -1,6 +1,9 @@
-package com.zinchenko.model;
+package com.zinchenko.wallet;
 
 
+import com.zinchenko.admin.currency.Currency;
+import com.zinchenko.security.model.User;
+import com.zinchenko.transaction.Transaction;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -20,8 +23,8 @@ public class Wallet {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "wallet_type_id", nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "wallet_type")
     private WalletType walletType;
 
     @Column(name = "balance")
