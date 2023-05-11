@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/api/v1/auth/*").permitAll()
+                .requestMatchers("/api/v1/wallets").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

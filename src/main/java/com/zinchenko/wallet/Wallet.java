@@ -23,31 +23,18 @@ public class Wallet {
     @Column(name = "name")
     private String name;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "wallet_type")
-    private WalletType walletType;
+    @Column(name = "initial_balance")
+    private Double initialBalance;
 
-    @Column(name = "balance")
-    private Double balance;
+    @Column(name = "actual_balance")
+    private Double actualBalance;
 
     @ManyToOne
     @JoinColumn(name = "currency_id", nullable = false)
     private Currency currency;
 
-    @OneToMany(mappedBy="wallet")
+    @OneToMany(mappedBy = "wallet")
     private List<Transaction> transactions;
-
-    public Wallet() {
-    }
-
-    public Wallet(Integer walletId, User user, String name, WalletType walletType, Double balance, Currency currency) {
-        this.walletId = walletId;
-        this.user = user;
-        this.name = name;
-        this.walletType = walletType;
-        this.balance = balance;
-        this.currency = currency;
-    }
 
     public Integer getWalletId() {
         return walletId;
@@ -76,21 +63,21 @@ public class Wallet {
         return this;
     }
 
-    public WalletType getWalletType() {
-        return walletType;
+    public Double getInitialBalance() {
+        return initialBalance;
     }
 
-    public Wallet setWalletType(WalletType walletType) {
-        this.walletType = walletType;
+    public Wallet setInitialBalance(Double initialBalance) {
+        this.initialBalance = initialBalance;
         return this;
     }
 
-    public Double getBalance() {
-        return balance;
+    public Double getActualBalance() {
+        return actualBalance;
     }
 
-    public Wallet setBalance(Double balance) {
-        this.balance = balance;
+    public Wallet setActualBalance(Double actualBalance) {
+        this.actualBalance = actualBalance;
         return this;
     }
 

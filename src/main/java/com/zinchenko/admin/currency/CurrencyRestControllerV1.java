@@ -33,7 +33,7 @@ public class CurrencyRestControllerV1 {
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<CurrencyDto> getById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(currencyService.getById(id));
+        return ResponseEntity.ok(currencyService.getCurrencyDto(id));
     }
 
     @DeleteMapping("/{id}")

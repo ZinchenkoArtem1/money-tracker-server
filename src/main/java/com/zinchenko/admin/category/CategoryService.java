@@ -36,14 +36,18 @@ public class CategoryService {
     }
 
     public void update(CategoryDto categoryDto) {
-        if (!categoryRepository.existsById(categoryDto.getId())) {
-            throw new IllegalStateException("Category with id [%s] not found".formatted(categoryDto.getId()));
-        } else {
-            categoryRepository.save(categoryConvertor.fromDto(categoryDto));
-        }
+        checkExist(categoryDto.getId());
+        categoryRepository.save(categoryConvertor.fromDto(categoryDto));
     }
 
     public void deleteById(Integer id) {
+        checkExist(id);
         categoryRepository.deleteById(id);
+    }
+
+    private void checkExist(Integer id) {
+        if (!categoryRepository.existsById(id)) {
+            throw new IllegalStateException("Category with id [%s] not found".formatted(id));
+        }
     }
 }
