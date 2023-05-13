@@ -1,10 +1,6 @@
 package com.zinchenko.user.model;
 
-import com.zinchenko.wallet.domain.Wallet;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
