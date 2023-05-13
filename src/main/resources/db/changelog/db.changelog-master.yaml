@@ -20,3 +20,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: changes/7-creating-monobank-transactions-table.sql
+  - include:
+      relativeToChangelogFile: true
+      file: changes/8-add-test-data.sql
