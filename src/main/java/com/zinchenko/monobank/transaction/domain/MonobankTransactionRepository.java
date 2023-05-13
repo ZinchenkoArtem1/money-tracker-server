@@ -1,16 +1,17 @@
-package com.zinchenko.monobank.transaction;
+package com.zinchenko.monobank.transaction.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface MonobankTransactionRepository extends JpaRepository<MonobankTransaction, Integer> {
 
     @Query("""
-            delete from MonobankTransaction tx
-            where tx.monobankWallet.monobankWalletId = :walletId
-            and tx.createdAt >= :from and tx.createdAt <= :to
+            select t from MonobankTransaction t
+            where t.monobankWallet.monobankWalletId = :id
             """)
-    void clearTransactionForPeriod(Long from, Long to, Integer walletId);
+    List<MonobankTransaction> findAllByWalletId(Integer id);
 }

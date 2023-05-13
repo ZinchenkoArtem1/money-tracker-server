@@ -1,10 +1,10 @@
-package com.zinchenko.manuatransaction;
+package com.zinchenko.monobank.transaction.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
-public class TransactionDto {
+public class MonobankTransactionDto {
 
     @JsonProperty("id")
     private Integer id;
@@ -15,8 +15,8 @@ public class TransactionDto {
     @JsonProperty("category_id")
     private Integer categoryId;
 
-    @JsonProperty("wallet_id")
-    private Integer walletId;
+    @JsonProperty("monobank_wallet_id")
+    private Integer monobankWalletId;
 
     @JsonProperty("description")
     private String description;
@@ -28,7 +28,7 @@ public class TransactionDto {
         return id;
     }
 
-    public TransactionDto setId(Integer id) {
+    public MonobankTransactionDto setId(Integer id) {
         this.id = id;
         return this;
     }
@@ -37,7 +37,7 @@ public class TransactionDto {
         return amountInUnits;
     }
 
-    public TransactionDto setAmountInUnits(Double amountInUnits) {
+    public MonobankTransactionDto setAmountInUnits(Double amountInUnits) {
         this.amountInUnits = amountInUnits;
         return this;
     }
@@ -46,17 +46,17 @@ public class TransactionDto {
         return categoryId;
     }
 
-    public TransactionDto setCategoryId(Integer categoryId) {
+    public MonobankTransactionDto setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
         return this;
     }
 
-    public Integer getWalletId() {
-        return walletId;
+    public Integer getMonobankWalletId() {
+        return monobankWalletId;
     }
 
-    public TransactionDto setWalletId(Integer walletId) {
-        this.walletId = walletId;
+    public MonobankTransactionDto setMonobankWalletId(Integer monobankWalletId) {
+        this.monobankWalletId = monobankWalletId;
         return this;
     }
 
@@ -64,7 +64,7 @@ public class TransactionDto {
         return description;
     }
 
-    public TransactionDto setDescription(String description) {
+    public MonobankTransactionDto setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -73,7 +73,7 @@ public class TransactionDto {
         return createdAt;
     }
 
-    public TransactionDto setCreatedAt(Instant createdAt) {
+    public MonobankTransactionDto setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
         return this;
     }

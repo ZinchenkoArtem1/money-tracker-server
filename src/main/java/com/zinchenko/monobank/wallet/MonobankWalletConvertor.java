@@ -1,9 +1,11 @@
 package com.zinchenko.monobank.wallet;
 
-import com.zinchenko.admin.category.Category;
-import com.zinchenko.admin.currency.Currency;
+import com.zinchenko.admin.category.domain.Category;
+import com.zinchenko.admin.currency.domain.Currency;
+import com.zinchenko.monobank.wallet.dto.MonobankWalletDto;
+import com.zinchenko.monobank.wallet.domain.MonobankWallet;
 import com.zinchenko.user.model.User;
-import com.zinchenko.monobank.transaction.MonobankTransaction;
+import com.zinchenko.monobank.transaction.domain.MonobankTransaction;
 import com.zinchenko.monobank.wallet.dto.CreateMonobankWalletRequest;
 import com.zinchenko.monobank.integration.dto.StatementResponse;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,15 @@ public class MonobankWalletConvertor {
                 .setActualBalanceInCents(actualBalance)
                 .setUser(user)
                 .setLastSyncDate(to);
+    }
+
+    public MonobankWalletDto toDto(MonobankWallet monobankWallet) {
+        return new MonobankWalletDto()
+                .setId(monobankWallet.getMonobankWalletId())
+                .setName(monobankWallet.getName())
+                .setCurrencyId(monobankWallet.getCurrency().getCurrencyId())
+                .setActualBalanceInUnits(Double.valueOf(monobankWallet.getActualBalanceInCents()) / 100)
+                .setLastSyncDate(monobankWallet.getLastSyncDate());
     }
 
     public MonobankTransaction toMonobankTransaction(StatementResponse statementResponse, MonobankWallet monobankWallet) {

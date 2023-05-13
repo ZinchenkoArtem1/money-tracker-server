@@ -1,4 +1,4 @@
-package com.zinchenko.admin.category;
+package com.zinchenko.admin.category.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

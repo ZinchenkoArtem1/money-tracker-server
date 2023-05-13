@@ -1,6 +1,6 @@
-package com.zinchenko.manuatransaction;
+package com.zinchenko.manuatransaction.domain;
 
-import com.zinchenko.admin.category.Category;
+import com.zinchenko.admin.category.domain.Category;
 import com.zinchenko.manualwallet.domain.Wallet;
 import jakarta.persistence.*;
 

@@ -1,7 +1,7 @@
-package com.zinchenko.monobank.wallet;
+package com.zinchenko.monobank.wallet.domain;
 
-import com.zinchenko.admin.currency.Currency;
-import com.zinchenko.monobank.transaction.MonobankTransaction;
+import com.zinchenko.admin.currency.domain.Currency;
+import com.zinchenko.monobank.transaction.domain.MonobankTransaction;
 import com.zinchenko.user.model.User;
 import jakarta.persistence.*;
 

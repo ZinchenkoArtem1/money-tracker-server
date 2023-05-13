@@ -1,6 +1,6 @@
 package com.zinchenko.manualwallet;
 
-import com.zinchenko.admin.currency.Currency;
+import com.zinchenko.admin.currency.domain.Currency;
 import com.zinchenko.user.model.User;
 import com.zinchenko.manualwallet.domain.Wallet;
 import com.zinchenko.manualwallet.dto.WalletDto;

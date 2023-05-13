@@ -1,9 +1,9 @@
 package com.zinchenko.manualwallet.domain;
 
 
-import com.zinchenko.admin.currency.Currency;
+import com.zinchenko.admin.currency.domain.Currency;
 import com.zinchenko.user.model.User;
-import com.zinchenko.manuatransaction.Transaction;
+import com.zinchenko.manuatransaction.domain.Transaction;
 import jakarta.persistence.*;
 
 import java.util.List;

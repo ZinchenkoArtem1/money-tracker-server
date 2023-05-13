@@ -1,18 +1,21 @@
 package com.zinchenko.monobank.wallet;
 
-import com.zinchenko.admin.currency.Currency;
+import com.zinchenko.admin.currency.domain.Currency;
 import com.zinchenko.admin.currency.CurrencyService;
-import com.zinchenko.security.SecurityUserService;
-import com.zinchenko.user.UserService;
-import com.zinchenko.user.model.User;
-import com.zinchenko.monobank.transaction.MonobankTransaction;
-import com.zinchenko.monobank.transaction.MonobankTransactionRepository;
-import com.zinchenko.monobank.wallet.dto.ClientAccountResponse;
-import com.zinchenko.monobank.wallet.dto.CreateMonobankWalletRequest;
 import com.zinchenko.monobank.integration.MonobankClient;
 import com.zinchenko.monobank.integration.MonobankConvertor;
 import com.zinchenko.monobank.integration.dto.GetClientInfoResponse;
 import com.zinchenko.monobank.integration.dto.StatementResponse;
+import com.zinchenko.monobank.transaction.domain.MonobankTransaction;
+import com.zinchenko.monobank.transaction.domain.MonobankTransactionRepository;
+import com.zinchenko.monobank.wallet.dto.ClientAccountResponse;
+import com.zinchenko.monobank.wallet.dto.CreateMonobankWalletRequest;
+import com.zinchenko.monobank.wallet.dto.MonobankWalletDto;
+import com.zinchenko.monobank.wallet.domain.MonobankWallet;
+import com.zinchenko.monobank.wallet.domain.MonobankWalletRepository;
+import com.zinchenko.security.SecurityUserService;
+import com.zinchenko.user.UserService;
+import com.zinchenko.user.model.User;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -95,6 +98,40 @@ public class MonobankWalletService {
 
         addTransactions(statements, monobankWallet);
         monobankWalletRepository.save(monobankWallet.setLastSyncDate(to));
+    }
+
+    public List<MonobankWalletDto> findAllByUser() {
+        return monobankWalletRepository.findAllByUserEmail(securityUserService.getActiveUser().getUsername()).stream()
+                .map(monobankWalletConvertor::toDto)
+                .toList();
+    }
+
+    public MonobankWalletDto getMonobankWalletDto(Integer id) {
+        MonobankWallet monobankWallet = getMonobankWallet(id);
+        return monobankWalletConvertor.toDto(monobankWallet);
+    }
+
+    public MonobankWallet getMonobankWallet(Integer id) {
+        return monobankWalletRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Monobank wallet with id [%s] not exist".formatted(id)));
+    }
+
+    public void update(MonobankWalletDto monobankWalletDto) {
+        checkExist(monobankWalletDto.getId());
+        MonobankWallet monobankWallet = getMonobankWallet(monobankWalletDto.getId());
+        monobankWallet.setName(monobankWalletDto.getName());
+        monobankWalletRepository.save(monobankWallet);
+    }
+
+    public void deleteById(Integer id) {
+        checkExist(id);
+        monobankWalletRepository.deleteById(id);
+    }
+
+    private void checkExist(Integer id) {
+        if (!monobankWalletRepository.existsById(id)) {
+            throw new IllegalStateException("Monobank wallet with id [%s] not found".formatted(id));
+        }
     }
 
     private void addTransactions(List<StatementResponse> statements, MonobankWallet monobankWallet) {

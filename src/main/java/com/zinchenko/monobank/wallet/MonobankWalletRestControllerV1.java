@@ -4,6 +4,7 @@ package com.zinchenko.monobank.wallet;
 import com.zinchenko.common.error.BasicErrorResponse;
 import com.zinchenko.monobank.wallet.dto.ClientAccountResponse;
 import com.zinchenko.monobank.wallet.dto.CreateMonobankWalletRequest;
+import com.zinchenko.monobank.wallet.dto.MonobankWalletDto;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class MonobankWalletRestControllerV1 {
     }
 
     //ToDo: maybe change to post for more security
-    @GetMapping("/{token}")
+    @GetMapping("/getAccounts/{token}")
     public ResponseEntity<List<ClientAccountResponse>> getClientAccounts(@PathVariable("token") String token) {
         return ResponseEntity.ok(monobankWalletService.getClientAccounts(token));
     }
@@ -44,6 +45,31 @@ public class MonobankWalletRestControllerV1 {
     @PreAuthorize("hasAuthority('user:all')")
     public ResponseEntity<Void> syncMonobankWalletTransactions(@PathVariable("id") Integer walletId) {
         monobankWalletService.syncMonobankWalletTransactions(walletId);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('user:all')")
+    public ResponseEntity<List<MonobankWalletDto>> findAllByUser() {
+        return ResponseEntity.ok(monobankWalletService.findAllByUser());
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('user:all')")
+    public ResponseEntity<MonobankWalletDto> getById(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(monobankWalletService.getMonobankWalletDto(id));
+    }
+
+    @PostMapping("/edit")
+    @PreAuthorize("hasAuthority('user:all')")
+    public void update(@RequestBody MonobankWalletDto monobankWalletDto) {
+        monobankWalletService.update(monobankWalletDto);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('user:all')")
+    public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) {
+        monobankWalletService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 

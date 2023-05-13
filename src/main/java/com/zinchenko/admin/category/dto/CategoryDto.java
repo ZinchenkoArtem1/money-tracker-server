@@ -1,8 +1,8 @@
-package com.zinchenko.admin.currency;
+package com.zinchenko.admin.category.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CurrencyDto {
+public class CategoryDto {
 
     @JsonProperty("id")
     private Integer id;
@@ -10,14 +10,11 @@ public class CurrencyDto {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("code")
-    private Integer code;
-
     public Integer getId() {
         return id;
     }
 
-    public CurrencyDto setId(Integer id) {
+    public CategoryDto setId(Integer id) {
         this.id = id;
         return this;
     }
@@ -26,17 +23,8 @@ public class CurrencyDto {
         return name;
     }
 
-    public CurrencyDto setName(String name) {
+    public CategoryDto setName(String name) {
         this.name = name;
-        return this;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public CurrencyDto setCode(Integer code) {
-        this.code = code;
         return this;
     }
 }

@@ -1,7 +1,7 @@
-package com.zinchenko.monobank.transaction;
+package com.zinchenko.monobank.transaction.domain;
 
-import com.zinchenko.admin.category.Category;
-import com.zinchenko.monobank.wallet.MonobankWallet;
+import com.zinchenko.admin.category.domain.Category;
+import com.zinchenko.monobank.wallet.domain.MonobankWallet;
 import jakarta.persistence.*;
 
 import java.time.Instant;

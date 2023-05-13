@@ -1,6 +1,7 @@
 package com.zinchenko.admin.currency;
 
 
+import com.zinchenko.admin.currency.dto.CurrencyDto;
 import com.zinchenko.common.error.BasicErrorResponse;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;

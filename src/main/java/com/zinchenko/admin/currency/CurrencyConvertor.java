@@ -1,5 +1,7 @@
 package com.zinchenko.admin.currency;
 
+import com.zinchenko.admin.currency.domain.Currency;
+import com.zinchenko.admin.currency.dto.CurrencyDto;
 import org.springframework.stereotype.Service;
 
 @Service

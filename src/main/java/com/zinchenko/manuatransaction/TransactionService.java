@@ -1,9 +1,12 @@
 package com.zinchenko.manuatransaction;
 
-import com.zinchenko.admin.category.Category;
+import com.zinchenko.admin.category.domain.Category;
 import com.zinchenko.admin.category.CategoryService;
 import com.zinchenko.manualwallet.WalletService;
 import com.zinchenko.manualwallet.domain.Wallet;
+import com.zinchenko.manuatransaction.dto.TransactionDto;
+import com.zinchenko.manuatransaction.domain.Transaction;
+import com.zinchenko.manuatransaction.domain.TransactionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

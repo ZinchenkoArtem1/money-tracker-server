@@ -1,4 +1,4 @@
-package com.zinchenko.monobank.wallet;
+package com.zinchenko.monobank.wallet.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

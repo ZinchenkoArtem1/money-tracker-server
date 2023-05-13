@@ -1,6 +1,5 @@
-package com.zinchenko.admin.currency;
+package com.zinchenko.admin.currency.domain;
 
-import com.zinchenko.admin.currency.Currency;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

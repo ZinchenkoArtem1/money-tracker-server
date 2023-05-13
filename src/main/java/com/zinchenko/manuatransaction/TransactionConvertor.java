@@ -1,7 +1,9 @@
 package com.zinchenko.manuatransaction;
 
-import com.zinchenko.admin.category.Category;
+import com.zinchenko.admin.category.domain.Category;
 import com.zinchenko.manualwallet.domain.Wallet;
+import com.zinchenko.manuatransaction.dto.TransactionDto;
+import com.zinchenko.manuatransaction.domain.Transaction;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;

@@ -1,4 +1,4 @@
-package com.zinchenko.manuatransaction;
+package com.zinchenko.manuatransaction.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,8 +1,9 @@
-package com.zinchenko.manuatransaction;
+package com.zinchenko.monobank.transaction;
 
 
 import com.zinchenko.common.error.BasicErrorResponse;
 import com.zinchenko.manuatransaction.dto.TransactionDto;
+import com.zinchenko.monobank.transaction.dto.MonobankTransactionDto;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,45 +17,32 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1/transactions")
-public class TransactionRestControllerV1 {
+@RequestMapping("/api/v1/transactions/monobank")
+public class MonobankTransactionRestControllerV1 {
 
-    private static final Logger log = LoggerFactory.getLogger(TransactionRestControllerV1.class);
-    private final TransactionService transactionService;
+    private static final Logger log = LoggerFactory.getLogger(MonobankTransactionRestControllerV1.class);
+    private final MonobankTransactionService monobankTransactionService;
 
-    public TransactionRestControllerV1(TransactionService transactionService) {
-        this.transactionService = transactionService;
+    public MonobankTransactionRestControllerV1(MonobankTransactionService monobankTransactionService) {
+        this.monobankTransactionService = monobankTransactionService;
     }
 
     @GetMapping("/wallet/{id}")
     @PreAuthorize("hasAuthority('user:all')")
-    public ResponseEntity<List<TransactionDto>> findAllByWallet(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(transactionService.findAllByWallet(id));
+    public ResponseEntity<List<MonobankTransactionDto>> findAllByWallet(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(monobankTransactionService.findAllByWallet(id));
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('user:all')")
-    public ResponseEntity<TransactionDto> getById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(transactionService.getTransactionDto(id));
-    }
-
-    @PostMapping
-    @PreAuthorize("hasAuthority('user:all')")
-    public void create(@RequestBody TransactionDto transactionDto) {
-        transactionService.create(transactionDto);
+    public ResponseEntity<MonobankTransactionDto> getById(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(monobankTransactionService.getTransactionDto(id));
     }
 
     @PostMapping("/edit")
     @PreAuthorize("hasAuthority('user:all')")
-    public void update(@RequestBody TransactionDto transactionDto) {
-        transactionService.update(transactionDto);
-    }
-
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('user:all')")
-    public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) {
-        transactionService.deleteById(id);
-        return ResponseEntity.ok().build();
+    public void update(@RequestBody MonobankTransactionDto monobankTransactionDto) {
+        monobankTransactionService.update(monobankTransactionDto);
     }
 
     @ExceptionHandler(Exception.class)
