@@ -15,7 +15,9 @@ public class WalletConvertor {
                 .setActualBalanceInUnits(wallet.getActualBalanceInCents().doubleValue() / 100)
                 .setInitialBalanceInUnits(wallet.getInitialBalanceInCents().doubleValue() / 100)
                 .setName(wallet.getName())
-                .setCurrencyId(wallet.getCurrency().getCurrencyId());
+                .setCurrencyId(wallet.getCurrency().getCurrencyId())
+                .setCurrencyCode(wallet.getCurrency().getCode())
+                .setCurrencyName(wallet.getCurrency().getName());
     }
 
     public Wallet fromDto(WalletDto walletDto, Currency currency, User user) {

@@ -27,13 +27,13 @@ public class CategoryRestControllerV1 {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('admin:read')")
+    @PreAuthorize("hasAuthority('user:all')")
     public ResponseEntity<List<CategoryDto>> findAll() {
         return ResponseEntity.ok(categoryService.findAll());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('admin:read')")
+    @PreAuthorize("hasAuthority('user:all')")
     public ResponseEntity<CategoryDto> getById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(categoryService.getCategoryDto(id));
     }

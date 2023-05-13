@@ -19,6 +19,12 @@ public class WalletDto {
     @JsonProperty("currency_id")
     private Integer currencyId;
 
+    @JsonProperty("currency_name")
+    private String currencyName;
+
+    @JsonProperty("currency_code")
+    private Integer currencyCode;
+
     public Integer getId() {
         return id;
     }
@@ -62,5 +68,23 @@ public class WalletDto {
 
     public Integer getCurrencyId() {
         return currencyId;
+    }
+
+    public String getCurrencyName() {
+        return currencyName;
+    }
+
+    public WalletDto setCurrencyName(String currencyName) {
+        this.currencyName = currencyName;
+        return this;
+    }
+
+    public Integer getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public WalletDto setCurrencyCode(Integer currencyCode) {
+        this.currencyCode = currencyCode;
+        return this;
     }
 }

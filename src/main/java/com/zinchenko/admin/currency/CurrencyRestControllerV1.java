@@ -27,13 +27,13 @@ public class CurrencyRestControllerV1 {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('admin:read')")
+    @PreAuthorize("hasAuthority('user:all')")
     public ResponseEntity<List<CurrencyDto>> findAll() {
         return ResponseEntity.ok(currencyService.findAll());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('admin:read')")
+    @PreAuthorize("hasAuthority('user:all')")
     public ResponseEntity<CurrencyDto> getById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(currencyService.getCurrencyDto(id));
     }
