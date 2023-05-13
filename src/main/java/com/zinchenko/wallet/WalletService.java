@@ -2,10 +2,12 @@ package com.zinchenko.wallet;
 
 import com.zinchenko.admin.currency.Currency;
 import com.zinchenko.admin.currency.CurrencyService;
-import com.zinchenko.security.model.User;
-import com.zinchenko.security.service.UserService;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.zinchenko.security.SecurityUserService;
+import com.zinchenko.user.UserService;
+import com.zinchenko.user.model.User;
+import com.zinchenko.wallet.domain.Wallet;
+import com.zinchenko.wallet.domain.WalletRepository;
+import com.zinchenko.wallet.dto.WalletDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,17 +19,20 @@ public class WalletService {
     private final WalletConvertor walletConvertor;
     private final UserService userService;
     private final CurrencyService currencyService;
+    private final SecurityUserService securityUserService;
 
     public WalletService(WalletRepository walletRepository, WalletConvertor walletConvertor,
-                         UserService userService, CurrencyService currencyService) {
+                         UserService userService, CurrencyService currencyService,
+                         SecurityUserService securityUserService) {
         this.walletRepository = walletRepository;
         this.walletConvertor = walletConvertor;
         this.userService = userService;
         this.currencyService = currencyService;
+        this.securityUserService = securityUserService;
     }
 
     public List<WalletDto> findAllByUser() {
-        return walletRepository.findByUserId(getActiveUser().getUsername()).stream()
+        return walletRepository.findByUserEmail(securityUserService.getActiveUser().getUsername()).stream()
                 .map(walletConvertor::toDto)
                 .toList();
     }
@@ -47,7 +52,7 @@ public class WalletService {
             throw new IllegalStateException("Request body must not contain id for the create wallet operation");
         } else {
             Currency currency = currencyService.getCurrency(walletDto.getCurrencyId());
-            User user = userService.getUserByEmail(getActiveUser().getUsername());
+            User user = userService.getUserByEmail(securityUserService.getActiveUser().getUsername());
             walletRepository.save(walletConvertor.fromDto(walletDto, currency, user));
         }
     }
@@ -62,10 +67,6 @@ public class WalletService {
     public void deleteById(Integer id) {
         checkExist(id);
         walletRepository.deleteById(id);
-    }
-
-    private UserDetails getActiveUser() {
-        return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     private void checkExist(Integer id) {

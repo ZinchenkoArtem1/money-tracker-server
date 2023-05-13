@@ -21,10 +21,13 @@ public class CategoryService {
                 .toList();
     }
 
-    public CategoryDto getById(Integer id) {
-        return categoryConvertor.toDto(categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("Category with id [%s] not found".formatted(id)))
-        );
+    public CategoryDto getCategoryDto(Integer id) {
+        return categoryConvertor.toDto(getCategory(id));
+    }
+
+    public Category getCategory(Integer id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Category with id [%s] not found".formatted(id)));
     }
 
     public void create(CategoryDto categoryDto) {

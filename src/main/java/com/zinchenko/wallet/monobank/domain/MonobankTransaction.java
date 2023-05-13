@@ -1,23 +1,22 @@
-package com.zinchenko.transaction;
+package com.zinchenko.wallet.monobank.domain;
 
 import com.zinchenko.admin.category.Category;
-import com.zinchenko.wallet.domain.Wallet;
 import jakarta.persistence.*;
 
 import java.time.Instant;
 
 @Entity
-@Table(name = "transactions")
-public class Transaction {
+@Table(name = "monobank_transactions")
+public class MonobankTransaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "transaction_id")
-    private Integer transactionId;
+    @Column(name = "monobank_transaction_id")
+    private Integer monobankTransactionId;
 
     @ManyToOne
-    @JoinColumn(name = "wallet_id", nullable = false)
-    private Wallet wallet;
+    @JoinColumn(name = "monobank_wallet_id", nullable = false)
+    private MonobankWallet monobankWallet;
 
     @Column(name = "amount_in_cents")
     private Long amountInCents;
@@ -32,21 +31,21 @@ public class Transaction {
     @Column(name = "created_at")
     private Instant createdAt;
 
-    public Integer getTransactionId() {
-        return transactionId;
+    public Integer getMonobankTransactionId() {
+        return monobankTransactionId;
     }
 
-    public Transaction setTransactionId(Integer transactionId) {
-        this.transactionId = transactionId;
+    public MonobankTransaction setMonobankTransactionId(Integer monobankTransactionId) {
+        this.monobankTransactionId = monobankTransactionId;
         return this;
     }
 
-    public Wallet getWallet() {
-        return wallet;
+    public MonobankWallet getMonobankWallet() {
+        return monobankWallet;
     }
 
-    public Transaction setWallet(Wallet wallet) {
-        this.wallet = wallet;
+    public MonobankTransaction setMonobankWallet(MonobankWallet monobankWallet) {
+        this.monobankWallet = monobankWallet;
         return this;
     }
 
@@ -54,7 +53,7 @@ public class Transaction {
         return amountInCents;
     }
 
-    public Transaction setAmountInCents(Long amountInCents) {
+    public MonobankTransaction setAmountInCents(Long amountInCents) {
         this.amountInCents = amountInCents;
         return this;
     }
@@ -63,7 +62,7 @@ public class Transaction {
         return category;
     }
 
-    public Transaction setCategory(Category category) {
+    public MonobankTransaction setCategory(Category category) {
         this.category = category;
         return this;
     }
@@ -72,7 +71,7 @@ public class Transaction {
         return description;
     }
 
-    public Transaction setDescription(String description) {
+    public MonobankTransaction setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -81,7 +80,7 @@ public class Transaction {
         return createdAt;
     }
 
-    public Transaction setCreatedAt(Instant createdAt) {
+    public MonobankTransaction setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
         return this;
     }

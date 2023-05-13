@@ -1,8 +1,7 @@
-package com.zinchenko.wallet;
+package com.zinchenko.transaction;
 
 
 import com.zinchenko.common.error.BasicErrorResponse;
-import com.zinchenko.wallet.dto.WalletDto;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,44 +14,44 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/wallets")
-public class WalletRestControllerV1 {
+@RequestMapping("/api/v1/transactions")
+public class TransactionRestControllerV1 {
 
-    private static final Logger log = LoggerFactory.getLogger(WalletRestControllerV1.class);
-    private final WalletService walletService;
+    private static final Logger log = LoggerFactory.getLogger(TransactionRestControllerV1.class);
+    private final TransactionService transactionService;
 
-    public WalletRestControllerV1(WalletService walletService) {
-        this.walletService = walletService;
+    public TransactionRestControllerV1(TransactionService transactionService) {
+        this.transactionService = transactionService;
     }
 
-    @GetMapping
+    @GetMapping("/wallet/{id}")
     @PreAuthorize("hasAuthority('user:all')")
-    public ResponseEntity<List<WalletDto>> findAllByUser() {
-        return ResponseEntity.ok(walletService.findAllByUser());
+    public ResponseEntity<List<TransactionDto>> findAllByWallet(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(transactionService.findAllByWallet(id));
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('user:all')")
-    public ResponseEntity<WalletDto> getById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(walletService.getWalletDto(id));
+    public ResponseEntity<TransactionDto> getById(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(transactionService.getTransactionDto(id));
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('user:all')")
-    public void create(@RequestBody WalletDto walletDto) {
-        walletService.create(walletDto);
+    public void create(@RequestBody TransactionDto transactionDto) {
+        transactionService.create(transactionDto);
     }
 
     @PostMapping("/edit")
     @PreAuthorize("hasAuthority('user:all')")
-    public void update(@RequestBody WalletDto walletDto) {
-        walletService.update(walletDto);
+    public void update(@RequestBody TransactionDto transactionDto) {
+        transactionService.update(transactionDto);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('user:all')")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) {
-        walletService.deleteById(id);
+        transactionService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 

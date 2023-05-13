@@ -16,6 +16,9 @@ public class Currency {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "code")
+    private Integer code;
+
     public Currency() {
     }
 
@@ -39,6 +42,15 @@ public class Currency {
 
     public Currency setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public Currency setCode(Integer code) {
+        this.code = code;
         return this;
     }
 }

@@ -31,6 +31,12 @@ public class CurrencyService {
                 );
     }
 
+    public Currency getCurrencyByCode(Integer code) {
+        return currencyRepository.findByCode(code)
+                .orElseThrow(() -> new IllegalStateException("Currency with code [%s] not found".formatted(code))
+                );
+    }
+
     public void create(CurrencyDto currencyDto) {
         if (currencyDto.getId() != null) {
             throw new IllegalStateException("Request body must not contain id for the create currency operation");

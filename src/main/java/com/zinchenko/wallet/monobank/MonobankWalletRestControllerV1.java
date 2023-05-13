@@ -1,8 +1,9 @@
-package com.zinchenko.wallet;
+package com.zinchenko.wallet.monobank;
 
 
 import com.zinchenko.common.error.BasicErrorResponse;
-import com.zinchenko.wallet.dto.WalletDto;
+import com.zinchenko.wallet.monobank.dto.ClientAccountResponse;
+import com.zinchenko.wallet.monobank.dto.CreateMonobankWalletRequest;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,44 +16,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/wallets")
-public class WalletRestControllerV1 {
+@RequestMapping("/api/v1/wallets/monobank")
+public class MonobankWalletRestControllerV1 {
 
-    private static final Logger log = LoggerFactory.getLogger(WalletRestControllerV1.class);
-    private final WalletService walletService;
+    private static final Logger log = LoggerFactory.getLogger(MonobankWalletRestControllerV1.class);
+    private final MonobankWalletService monobankWalletService;
 
-    public WalletRestControllerV1(WalletService walletService) {
-        this.walletService = walletService;
+    public MonobankWalletRestControllerV1(MonobankWalletService monobankWalletService) {
+        this.monobankWalletService = monobankWalletService;
     }
 
-    @GetMapping
-    @PreAuthorize("hasAuthority('user:all')")
-    public ResponseEntity<List<WalletDto>> findAllByUser() {
-        return ResponseEntity.ok(walletService.findAllByUser());
-    }
-
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('user:all')")
-    public ResponseEntity<WalletDto> getById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(walletService.getWalletDto(id));
+    //ToDo: maybe change to post for more security
+    @GetMapping("/{token}")
+    public ResponseEntity<List<ClientAccountResponse>> getClientAccounts(@PathVariable("token") String token) {
+        return ResponseEntity.ok(monobankWalletService.getClientAccounts(token));
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('user:all')")
-    public void create(@RequestBody WalletDto walletDto) {
-        walletService.create(walletDto);
+    public ResponseEntity<Void> createMonobankWallet(@RequestBody CreateMonobankWalletRequest createMonobankWalletRequest) {
+        monobankWalletService.createMonobankWallet(createMonobankWalletRequest);
+        return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/sync/{id}")
     @PreAuthorize("hasAuthority('user:all')")
-    public void update(@RequestBody WalletDto walletDto) {
-        walletService.update(walletDto);
-    }
-
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('user:all')")
-    public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) {
-        walletService.deleteById(id);
+    public ResponseEntity<Void> syncMonobankWalletTransactions(@PathVariable("id") Integer walletId) {
+        monobankWalletService.syncMonobankWalletTransactions(walletId);
         return ResponseEntity.ok().build();
     }
 

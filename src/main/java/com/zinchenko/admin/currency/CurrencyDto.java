@@ -10,6 +10,9 @@ public class CurrencyDto {
     @JsonProperty("name")
     private String name;
 
+    @JsonProperty("code")
+    private Integer code;
+
     public Integer getId() {
         return id;
     }
@@ -25,6 +28,15 @@ public class CurrencyDto {
 
     public CurrencyDto setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public CurrencyDto setCode(Integer code) {
+        this.code = code;
         return this;
     }
 }

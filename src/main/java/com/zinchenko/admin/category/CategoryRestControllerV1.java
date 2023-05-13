@@ -33,7 +33,7 @@ public class CategoryRestControllerV1 {
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<CategoryDto> getById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(categoryService.getById(id));
+        return ResponseEntity.ok(categoryService.getCategoryDto(id));
     }
 
     @DeleteMapping("/{id}")
