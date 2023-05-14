@@ -42,9 +42,11 @@ public class MonobankWalletConvertor {
                 .setDescription(statementResponse.getDescription())
                 .setMonobankWallet(monobankWallet)
                 .setAmountInCents(statementResponse.getAmount())
-                //ToDo: map category from monobank to internal categories
-                .setCategory(new Category()
-                        .setCategoryId(1)
-                        .setName("default"));
+                .setCategory(getDefaultCategoryForMonobankTransactions());
+    }
+
+    private Category getDefaultCategoryForMonobankTransactions() {
+        return new Category()
+                .setCategoryId(1);
     }
 }

@@ -1,5 +1,6 @@
 package com.zinchenko.monobank.wallet;
 
+import com.zinchenko.admin.category.domain.Category;
 import com.zinchenko.admin.currency.domain.Currency;
 import com.zinchenko.admin.currency.CurrencyService;
 import com.zinchenko.monobank.integration.MonobankClient;
@@ -24,8 +25,6 @@ import java.util.List;
 @Service
 public class MonobankWalletService {
 
-    private static final Long MAX_TIME_FOR_FETCHING_STATEMENTS = 2682000L;
-    private static final int MAX_COUNT_FOR_FETCH_STATEMENTS = 500;
     private final MonobankConvertor monobankConvertor;
     private final MonobankClient monobankClient;
     private final MonobankTransactionRepository monobankTransactionRepository;
@@ -136,7 +135,9 @@ public class MonobankWalletService {
 
     private void addTransactions(List<StatementResponse> statements, MonobankWallet monobankWallet) {
         List<MonobankTransaction> transactions = statements.stream()
-                .map(st -> monobankWalletConvertor.toMonobankTransaction(st, monobankWallet))
+                .map(st -> monobankWalletConvertor.toMonobankTransaction(
+                        st, monobankWallet)
+                )
                 .toList();
 
         monobankTransactionRepository.saveAll(transactions);

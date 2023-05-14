@@ -1,13 +1,13 @@
 package com.zinchenko.manualwallet;
 
-import com.zinchenko.admin.currency.domain.Currency;
 import com.zinchenko.admin.currency.CurrencyService;
-import com.zinchenko.security.SecurityUserService;
-import com.zinchenko.user.UserService;
-import com.zinchenko.user.model.User;
+import com.zinchenko.admin.currency.domain.Currency;
 import com.zinchenko.manualwallet.domain.Wallet;
 import com.zinchenko.manualwallet.domain.WalletRepository;
 import com.zinchenko.manualwallet.dto.WalletDto;
+import com.zinchenko.security.SecurityUserService;
+import com.zinchenko.user.UserService;
+import com.zinchenko.user.model.User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,7 +32,8 @@ public class WalletService {
     }
 
     public List<WalletDto> findAllByUser() {
-        return walletRepository.findByUserEmail(securityUserService.getActiveUser().getUsername()).stream()
+        String email = securityUserService.getActiveUser().getUsername();
+        return walletRepository.findByUserEmail(email).stream()
                 .map(walletConvertor::toDto)
                 .toList();
     }
@@ -59,8 +60,8 @@ public class WalletService {
 
     public void update(WalletDto walletDto) {
         checkExist(walletDto.getId());
-        Wallet wallet = getWallet(walletDto.getId());
-        wallet.setName(walletDto.getName());
+        Wallet wallet = getWallet(walletDto.getId())
+                .setName(walletDto.getName());
         walletRepository.save(wallet);
     }
 

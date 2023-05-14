@@ -49,7 +49,6 @@ public class TransactionService {
             Category category = categoryService.getCategory(transactionDto.getCategoryId());
             Wallet wallet = walletService.getWallet(transactionDto.getWalletId());
             Transaction transaction = transactionConvertor.fromDto(transactionDto, category, wallet);
-            //ToDo: check maybe need save wallet with new actual balance
             wallet.setActualBalanceInCents(wallet.getActualBalanceInCents() + transaction.getAmountInCents());
             transactionRepository.save(transaction);
         }

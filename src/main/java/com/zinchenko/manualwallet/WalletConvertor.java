@@ -1,19 +1,26 @@
 package com.zinchenko.manualwallet;
 
 import com.zinchenko.admin.currency.domain.Currency;
-import com.zinchenko.user.model.User;
+import com.zinchenko.common.money.MoneyConvertor;
 import com.zinchenko.manualwallet.domain.Wallet;
 import com.zinchenko.manualwallet.dto.WalletDto;
+import com.zinchenko.user.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class WalletConvertor {
 
+    private final MoneyConvertor moneyConvertor;
+
+    public WalletConvertor(MoneyConvertor moneyConvertor) {
+        this.moneyConvertor = moneyConvertor;
+    }
+
     public WalletDto toDto(Wallet wallet) {
         return new WalletDto()
                 .setId(wallet.getWalletId())
-                .setActualBalanceInUnits(wallet.getActualBalanceInCents().doubleValue() / 100)
-                .setInitialBalanceInUnits(wallet.getInitialBalanceInCents().doubleValue() / 100)
+                .setActualBalanceInUnits(moneyConvertor.toUnits(wallet.getActualBalanceInCents()))
+                .setInitialBalanceInUnits(moneyConvertor.toUnits(wallet.getInitialBalanceInCents()))
                 .setName(wallet.getName())
                 .setCurrencyId(wallet.getCurrency().getCurrencyId())
                 .setCurrencyCode(wallet.getCurrency().getCode())
@@ -23,8 +30,8 @@ public class WalletConvertor {
     public Wallet fromDto(WalletDto walletDto, Currency currency, User user) {
         return new Wallet()
                 .setName(walletDto.getName())
-                .setInitialBalanceInCents(Double.valueOf(walletDto.getInitialBalanceInUnits() * 100).longValue())
-                .setActualBalanceInCents(Double.valueOf(walletDto.getInitialBalanceInUnits() * 100).longValue())
+                .setInitialBalanceInCents(moneyConvertor.toCents(walletDto.getInitialBalanceInUnits()))
+                .setActualBalanceInCents(moneyConvertor.toCents(walletDto.getInitialBalanceInUnits()))
                 .setCurrency(currency)
                 .setUser(user);
     }

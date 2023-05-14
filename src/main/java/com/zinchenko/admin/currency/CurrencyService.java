@@ -50,7 +50,10 @@ public class CurrencyService {
 
     public void update(CurrencyDto currencyDto) {
         checkExist(currencyDto.getId());
-        currencyRepository.save(currencyConvertor.fromDto(currencyDto));
+        Currency currency = getCurrency(currencyDto.getId())
+                .setName(currencyDto.getName())
+                .setCode(currencyDto.getCode());
+        currencyRepository.save(currency);
     }
 
     public void deleteById(Integer id) {

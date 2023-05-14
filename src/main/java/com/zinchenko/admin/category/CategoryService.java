@@ -43,7 +43,9 @@ public class CategoryService {
 
     public void update(CategoryDto categoryDto) {
         checkExist(categoryDto.getId());
-        categoryRepository.save(categoryConvertor.fromDto(categoryDto));
+        Category category = getCategory(categoryDto.getId())
+                .setName(categoryDto.getName());
+        categoryRepository.save(category);
     }
 
     public void deleteById(Integer id) {
