@@ -10,6 +10,7 @@ import com.zinchenko.monobank.integration.dto.GetClientInfoResponse;
 import com.zinchenko.monobank.integration.dto.StatementResponse;
 import com.zinchenko.transaction.TransactionService;
 import com.zinchenko.wallet.domain.Wallet;
+import com.zinchenko.wallet.domain.WalletRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -22,13 +23,16 @@ public class MonobankService {
     private final MonobankClient monobankClient;
     private final MonobankDataRepository monobankDataRepository;
     private final TransactionService transactionService;
+    private final WalletRepository walletRepository;
 
     public MonobankService(MonobankClient monobankClient, MonobankConvertor monobankConvertor,
-                           MonobankDataRepository monobankDataRepository, TransactionService transactionService) {
+                           MonobankDataRepository monobankDataRepository, TransactionService transactionService,
+                           WalletRepository walletRepository) {
         this.monobankClient = monobankClient;
         this.monobankConvertor = monobankConvertor;
         this.monobankDataRepository = monobankDataRepository;
         this.transactionService = transactionService;
+        this.walletRepository = walletRepository;
     }
 
     public List<ClientAccountResponse> getClientAccounts(ClientAccountRequest clientAccountRequest) {
@@ -53,8 +57,13 @@ public class MonobankService {
                 monobankData.getLastSyncDate().getEpochSecond(),
                 to.getEpochSecond()
         );
+        if (!statements.isEmpty()) {
+            transactionService.addMonobankTransactions(statements, walletId);
+            walletRepository.save(walletRepository.findById(walletId).orElseThrow()
+                    .setActualBalanceInCents(statements.get(0).getBalance())
+            );
+        }
 
-        transactionService.addMonobankTransactions(statements, walletId);
         monobankDataRepository.save(monobankData.setLastSyncDate(to));
     }
 

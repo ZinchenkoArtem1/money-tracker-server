@@ -13,7 +13,7 @@ public class AccountResponse {
     private String sendId;
 
     @JsonProperty("balance")
-    private Integer balance;
+    private Long balance;
 
     @JsonProperty("creditLimit")
     private Integer creditLimit;
@@ -51,11 +51,11 @@ public class AccountResponse {
         return this;
     }
 
-    public Integer getBalance() {
+    public Long getBalance() {
         return balance;
     }
 
-    public AccountResponse setBalance(Integer balance) {
+    public AccountResponse setBalance(Long balance) {
         this.balance = balance;
         return this;
     }

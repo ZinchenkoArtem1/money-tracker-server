@@ -19,4 +19,10 @@ databaseChangeLog:
       file: changes/6-creating-monobank-data-table.sql
   - include:
       relativeToChangelogFile: true
-      file: changes/7-add-test-data.sql
+      file: changes/7-add-main-currencies.sql
+  - include:
+      relativeToChangelogFile: true
+      file: changes/8-add-default-category.sql
+  - include:
+      relativeToChangelogFile: true
+      file: changes/9-add-default-admin.sql

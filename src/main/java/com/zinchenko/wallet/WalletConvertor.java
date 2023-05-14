@@ -28,16 +28,21 @@ public class WalletConvertor {
                 .setWalletType(wallet.getWalletType());
     }
 
-    public Wallet toWallet(String name, Currency currency, User user, Long actualBalanceInCents) {
+    public Wallet toMonobankWallet(String name, Currency currency, User user, Long actualBalanceInCents) {
         return new Wallet()
                 .setName(name)
                 .setActualBalanceInCents(actualBalanceInCents)
                 .setCurrency(currency)
                 .setUser(user)
-                .setWalletType(WalletType.MANUAL);
+                .setWalletType(WalletType.MONOBANK);
     }
 
-    public Wallet toWallet(String name, Currency currency, User user, Double actualBalanceInUnits) {
-        return toWallet(name, currency, user, moneyConvertor.toCents(actualBalanceInUnits));
+    public Wallet toManualWallet(String name, Currency currency, User user, Double actualBalanceInUnits) {
+        return new Wallet()
+                .setName(name)
+                .setActualBalanceInCents(moneyConvertor.toCents(actualBalanceInUnits))
+                .setCurrency(currency)
+                .setUser(user)
+                .setWalletType(WalletType.MANUAL);
     }
 }

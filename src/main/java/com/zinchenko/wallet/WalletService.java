@@ -4,6 +4,7 @@ import com.zinchenko.admin.currency.CurrencyService;
 import com.zinchenko.admin.currency.domain.Currency;
 import com.zinchenko.monobank.MonobankService;
 import com.zinchenko.monobank.integration.MonobankClient;
+import com.zinchenko.monobank.integration.dto.AccountResponse;
 import com.zinchenko.monobank.integration.dto.StatementResponse;
 import com.zinchenko.security.SecurityUserService;
 import com.zinchenko.user.UserService;
@@ -80,7 +81,7 @@ public class WalletService {
         User user = userService.getUserByEmail(securityUserService.getActiveUser().getUsername());
 
         walletRepository.save(
-                walletConvertor.toWallet(request.getName(), currency, user, request.getActualBalanceInUnits())
+                walletConvertor.toManualWallet(request.getName(), currency, user, request.getActualBalanceInUnits())
         );
     }
 
@@ -94,11 +95,25 @@ public class WalletService {
                 from.getEpochSecond(),
                 to.getEpochSecond()
         );
+
+        Currency currency;
+        Long balance;
+
+        if (statements.isEmpty()) {
+            AccountResponse accountResponse = monobankClient.getClientInfo(request.getToken()).getAccounts().stream()
+                    .filter(ac -> ac.getId().equals(request.getAccountId())).findAny().orElseThrow();
+
+            currency = currencyService.getCurrencyByCode(accountResponse.getCurrencyCode());
+            balance = accountResponse.getBalance();
+        } else {
+            currency = currencyService.getCurrencyByCode(statements.get(0).getCurrencyCode());
+            balance = statements.get(0).getBalance();
+        }
+
         User user = userService.getUserByEmail(securityUserService.getActiveUser().getUsername());
-        Currency currency = currencyService.getCurrencyByCode(statements.get(0).getCurrencyCode());
 
         Wallet wallet = walletRepository.save(
-                walletConvertor.toWallet(request.getName(), currency, user, statements.get(0).getBalance())
+                walletConvertor.toMonobankWallet(request.getName(), currency, user, balance)
         );
 
         monobankService.create(wallet, to, request.getToken(), request.getAccountId(), statements);
