@@ -9,7 +9,7 @@ spring:
   #        use_sql_comments: true
   #        format_sql: true
   datasource:
-    url: jdbc:postgresql://db:5432/money_tracker?currentSchema=money_tracker
+    url: jdbc:postgresql://localhost:5432/money_tracker?currentSchema=money_tracker
     username: local_user
     password: local_password
 
