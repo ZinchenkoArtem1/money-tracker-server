@@ -1,15 +1,13 @@
 package com.zinchenko.user;
 
+import com.zinchenko.security.jwt.JwtTokenService;
 import com.zinchenko.user.dto.AuthenticationRequest;
 import com.zinchenko.user.dto.AuthenticationResponse;
 import com.zinchenko.user.dto.RegistrationRequest;
-import com.zinchenko.security.jwt.JwtTokenService;
 import com.zinchenko.user.model.Role;
 import com.zinchenko.user.model.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +20,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public UserService(AuthenticationManager authenticationManager, UserRepository userRepository,
-                               JwtTokenService jwtTokenService, PasswordEncoder passwordEncoder
+                       JwtTokenService jwtTokenService, PasswordEncoder passwordEncoder
     ) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;

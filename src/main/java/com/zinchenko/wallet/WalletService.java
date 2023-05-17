@@ -49,12 +49,19 @@ public class WalletService {
         this.monobankClient = monobankClient;
     }
 
-    public List<WalletDto> getAllUserWallets() {
-        String email = securityUserService.getActiveUser().getUsername();
-        return walletRepository.findByUserEmail(email).stream()
+    public List<WalletDto> getAllUserWalletsDto() {
+        return getAllUserWallets().stream()
                 .map(walletConvertor::toWalletDto)
                 .toList();
     }
+
+
+    public List<Wallet> getAllUserWallets() {
+        String email = securityUserService.getActiveUser().getUsername();
+        return walletRepository.findByUserEmail(email).stream()
+                .toList();
+    }
+
 
     public WalletDto getWalletDto(Integer id) {
         Wallet wallet = getWallet(id);

@@ -31,7 +31,7 @@ public class WalletRestControllerV1 {
     @GetMapping
     @PreAuthorize("hasAuthority('user:all')")
     public ResponseEntity<List<WalletDto>> getAllUserWallets() {
-        return ResponseEntity.ok(walletService.getAllUserWallets());
+        return ResponseEntity.ok(walletService.getAllUserWalletsDto());
     }
 
     @GetMapping("/{id}")
