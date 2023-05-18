@@ -36,22 +36,4 @@ public class StatisticRestControllerV1 {
     public ResponseEntity<GetStatisticResponse> getAll(@RequestBody GetStatisticRequest getStatisticRequest) {
         return ResponseEntity.ok(statisticService.getStatisticForAllWallets(getStatisticRequest));
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<BasicErrorResponse> handleException(Exception ex) {
-        log.error(ExceptionUtils.getMessage(ex), ex);
-
-        return ResponseEntity.internalServerError().body(
-                new BasicErrorResponse("Internal server error")
-        );
-    }
-
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<BasicErrorResponse> handleAccessDeniedException(AccessDeniedException ex) {
-        log.error(ExceptionUtils.getMessage(ex), ex);
-
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
-                new BasicErrorResponse("Access Denied")
-        );
-    }
 }

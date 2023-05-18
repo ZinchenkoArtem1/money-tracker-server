@@ -35,22 +35,4 @@ public class AuthenticationRestControllerV1 {
         userService.create(request);
         return ResponseEntity.ok().build();
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<BasicErrorResponse> handleException(Exception ex) {
-        log.error(ExceptionUtils.getMessage(ex), ex);
-
-        return ResponseEntity.internalServerError().body(
-                new BasicErrorResponse("Internal server error")
-        );
-    }
-
-    @ExceptionHandler(GenericException.class)
-    public ResponseEntity<BasicErrorResponse> handleGenericException(GenericException ex) {
-        log.error(ExceptionUtils.getMessage(ex), ex);
-
-        return ResponseEntity.status(ex.getHttpStatus()).body(
-                new BasicErrorResponse(ex.getMessage())
-        );
-    }
 }

@@ -59,31 +59,4 @@ public class CategoryRestControllerV1 {
         categoryService.update(categoryDto);
         return ResponseEntity.ok().build();
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<BasicErrorResponse> handleException(Exception ex) {
-        log.error(ExceptionUtils.getMessage(ex), ex);
-
-        return ResponseEntity.internalServerError().body(
-                new BasicErrorResponse("Internal server error")
-        );
-    }
-
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<BasicErrorResponse> handleAccessDeniedException(AccessDeniedException ex) {
-        log.error(ExceptionUtils.getMessage(ex), ex);
-
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
-                new BasicErrorResponse("Access Denied")
-        );
-    }
-
-    @ExceptionHandler(GenericException.class)
-    public ResponseEntity<BasicErrorResponse> handleGenericException(GenericException ex) {
-        log.error(ExceptionUtils.getMessage(ex), ex);
-
-        return ResponseEntity.status(ex.getHttpStatus()).body(
-                new BasicErrorResponse(ex.getMessage())
-        );
-    }
 }
