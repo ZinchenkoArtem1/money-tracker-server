@@ -2,6 +2,7 @@ package com.zinchenko.monobank;
 
 
 import com.zinchenko.common.error.BasicErrorResponse;
+import com.zinchenko.common.error.GenericException;
 import com.zinchenko.monobank.dto.ClientAccountRequest;
 import com.zinchenko.monobank.dto.ClientAccountResponse;
 import com.zinchenko.monobank.dto.SyncWalletTransactionsRequest;
@@ -56,6 +57,15 @@ public class MonobankRestControllerV1 {
 
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
                 new BasicErrorResponse("Access Denied")
+        );
+    }
+
+    @ExceptionHandler(GenericException.class)
+    public ResponseEntity<BasicErrorResponse> handleGenericException(GenericException ex) {
+        log.error(ExceptionUtils.getMessage(ex), ex);
+
+        return ResponseEntity.status(ex.getHttpStatus()).body(
+                new BasicErrorResponse(ex.getMessage())
         );
     }
 }

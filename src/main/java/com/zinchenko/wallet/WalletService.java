@@ -58,6 +58,7 @@ public class WalletService {
 
     public List<Wallet> getAllUserWallets() {
         String email = securityUserService.getActiveUser().getUsername();
+
         return walletRepository.findByUserEmail(email).stream()
                 .toList();
     }

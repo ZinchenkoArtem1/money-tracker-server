@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '3.0.4'
     id 'java'
+    id "org.sonarqube" version "4.0.0.2929"
 }
 
 group 'com.zinchenko'
@@ -26,6 +27,7 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
     implementation 'org.springframework.boot:spring-boot-starter-security:3.0.4'
 
+    testImplementation 'org.springframework.security:spring-security-test:6.1.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.0.4'
 }
 

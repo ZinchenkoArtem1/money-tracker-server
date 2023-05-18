@@ -49,10 +49,10 @@ public class CurrencyService {
     }
 
     public void update(CurrencyDto currencyDto) {
-        checkExist(currencyDto.getId());
-        Currency currency = getCurrency(currencyDto.getId())
-                .setName(currencyDto.getName())
-                .setCode(currencyDto.getCode());
+        Currency currency = getCurrency(currencyDto.getId());
+        currency.setName(currencyDto.getName());
+        currency.setCode(currencyDto.getCode());
+
         currencyRepository.save(currency);
     }
 
