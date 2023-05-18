@@ -9,7 +9,7 @@ CREATE TABLE Transactions
 
     CONSTRAINT fk_wallet
         FOREIGN KEY (wallet_id)
-            REFERENCES wallets (wallet_id),
+            REFERENCES wallets (wallet_id) ON DELETE CASCADE,
     CONSTRAINT fk_category
         FOREIGN KEY (category_id)
             REFERENCES categories (category_id)
