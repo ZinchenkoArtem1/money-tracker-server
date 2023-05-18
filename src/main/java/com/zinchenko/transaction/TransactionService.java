@@ -32,6 +32,12 @@ public class TransactionService {
         this.moneyConvertor = moneyConvertor;
     }
 
+    public List<TransactionDto> findAll() {
+        return transactionRepository.findAll().stream()
+                .map(transactionConvertor::toDto)
+                .toList();
+    }
+
     public List<TransactionDto> findAllByWallet(Integer id) {
         return transactionRepository.findAllByWalletId(id).stream()
                 .map(transactionConvertor::toDto)

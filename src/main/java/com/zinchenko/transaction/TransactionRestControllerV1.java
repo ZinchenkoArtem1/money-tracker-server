@@ -19,6 +19,12 @@ public class TransactionRestControllerV1 {
         this.transactionService = transactionService;
     }
 
+    @GetMapping
+    @PreAuthorize("hasAuthority('user:all')")
+    public ResponseEntity<List<TransactionDto>> findAll() {
+        return ResponseEntity.ok(transactionService.findAll());
+    }
+
     @GetMapping("/wallet/{id}")
     @PreAuthorize("hasAuthority('user:all')")
     public ResponseEntity<List<TransactionDto>> findAllByWallet(@PathVariable("id") Integer id) {
