@@ -25,9 +25,11 @@ public class TransactionConvertor {
                 .setId(transaction.getTransactionId())
                 .setAmountInUnits(moneyConvertor.toUnits(transaction.getAmountInCents()))
                 .setCategoryId(transaction.getCategory().getCategoryId())
+                .setCategoryName(transaction.getCategory().getName())
                 .setDescription(transaction.getDescription())
                 .setCreatedAt(transaction.getCreatedAt())
-                .setWalletId(transaction.getWallet().getWalletId());
+                .setWalletId(transaction.getWallet().getWalletId())
+                .setCurrencyName(transaction.getWallet().getCurrency().getName());
     }
 
     public Transaction fromDto(TransactionDto transactionDto, Category category, Wallet wallet) {
