@@ -15,6 +15,9 @@ public class TransactionDto {
     @JsonProperty("category_id")
     private Integer categoryId;
 
+    @JsonProperty("category_name")
+    private String categoryName;
+
     @JsonProperty("wallet_id")
     private Integer walletId;
 
@@ -23,6 +26,9 @@ public class TransactionDto {
 
     @JsonProperty("created_at")
     private Instant createdAt;
+
+    @JsonProperty("currency_name")
+    private String currencyName;
 
     public Integer getId() {
         return id;
@@ -51,6 +57,15 @@ public class TransactionDto {
         return this;
     }
 
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public TransactionDto setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+        return this;
+    }
+
     public Integer getWalletId() {
         return walletId;
     }
@@ -75,6 +90,15 @@ public class TransactionDto {
 
     public TransactionDto setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+        return this;
+    }
+
+    public String getCurrencyName() {
+        return currencyName;
+    }
+
+    public TransactionDto setCurrencyName(String currencyName) {
+        this.currencyName = currencyName;
         return this;
     }
 }

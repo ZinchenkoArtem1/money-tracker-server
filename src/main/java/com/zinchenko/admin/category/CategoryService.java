@@ -42,9 +42,9 @@ public class CategoryService {
     }
 
     public void update(CategoryDto categoryDto) {
-        checkExist(categoryDto.getId());
-        Category category = getCategory(categoryDto.getId())
-                .setName(categoryDto.getName());
+        Category category = getCategory(categoryDto.getId());
+        category.setName(categoryDto.getName());
+
         categoryRepository.save(category);
     }
 

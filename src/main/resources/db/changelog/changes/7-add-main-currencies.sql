@@ -1,3 +1,9 @@
 insert into Currencies (name, code) values ('USD', 840);
 insert into Currencies (name, code) values ('EUR', 978);
 insert into Currencies (name, code) values ('UAH', 980);
+insert into Currencies (name, code) values ('BRL', 986);
+insert into Currencies (name, code) values ('CAD', 124);
+insert into Currencies (name, code) values ('HRK', 191);
+insert into Currencies (name, code) values ('DKK', 208);
+insert into Currencies (name, code) values ('ILS', 376);
+insert into Currencies (name, code) values ('KRW', 410);

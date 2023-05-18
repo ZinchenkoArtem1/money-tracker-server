@@ -10,7 +10,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
 
 @Component
-//ToDo: use base url
 public class MonobankClient {
 
     private final WebClient webClient;
