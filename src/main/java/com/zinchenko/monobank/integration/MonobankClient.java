@@ -14,16 +14,19 @@ public class MonobankClient {
 
     private final WebClient webClient;
 
-    @Value("${monobank.api.url}")
-    private String monobankApiUrl;
-    @Value("${monobank.api.get_client_info_path}")
-    private String getClientInfoPath;
-    @Value("${monobank.api.get_statements_path}")
-    private String getStatementsPath;
-    @Value("${monobank.api.token_header_name}")
-    private String tokenHeaderName;
+    private final String monobankApiUrl;
+    private final String getClientInfoPath;
+    private final String getStatementsPath;
+    private final String tokenHeaderName;
 
-    public MonobankClient() {
+    public MonobankClient(@Value("${monobank.api.url}") String monobankApiUrl,
+                          @Value("${monobank.api.get_client_info_path}") String getClientInfoPath,
+                          @Value("${monobank.api.get_statements_path}") String getStatementsPath,
+                          @Value("${monobank.api.token_header_name}") String tokenHeaderName) {
+        this.monobankApiUrl = monobankApiUrl;
+        this.getClientInfoPath = getClientInfoPath;
+        this.getStatementsPath = getStatementsPath;
+        this.tokenHeaderName = tokenHeaderName;
         webClient = WebClient
                 .builder()
                 .baseUrl(monobankApiUrl)

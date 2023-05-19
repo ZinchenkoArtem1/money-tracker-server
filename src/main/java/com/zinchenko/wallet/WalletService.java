@@ -128,9 +128,8 @@ public class WalletService {
     }
 
     public void update(UpdateWalletRequest request) {
-        checkExist(request.getId());
-        Wallet wallet = getWallet(request.getId())
-                .setName(request.getName());
+        Wallet wallet = getWallet(request.getId());
+        wallet.setName(request.getName());
         walletRepository.save(wallet);
     }
 
