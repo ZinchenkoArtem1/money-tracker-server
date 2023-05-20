@@ -1,6 +1,8 @@
 package com.zinchenko.security;
 
 import com.zinchenko.user.UserRepository;
+import com.zinchenko.user.model.Role;
+import com.zinchenko.user.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,11 +36,20 @@ class SecurityUserServiceTest {
     @Test
     void loadUserByUsernameNotExistTest() {
         String email = UUID.randomUUID().toString();
+        String password = UUID.randomUUID().toString();
 
-        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(
+                new User()
+                        .setEmail(email)
+                        .setPassword(password)
+                        .setRole(Role.USER)
+        ));
 
-        IllegalStateException exc = assertThrows(IllegalStateException.class, () -> securityUserService.loadUserByUsername(email));
-        assertEquals("User with email [%s] not exists".formatted(email), exc.getMessage());
+        UserDetails userDetails = securityUserService.loadUserByUsername(email);
+
+        assertEquals(email, userDetails.getUsername());
+        assertEquals(password, userDetails.getPassword());
+        assertEquals(Role.USER.getAuthorities(), userDetails.getAuthorities());
     }
 
     @Test

@@ -2,16 +2,19 @@ package com.zinchenko.statistic.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+
 public class GetStatisticRequest {
 
     @JsonProperty("wallet_id")
     private Integer walletId;
 
     @JsonProperty("from")
-    private Long from;
+    private Long from = Instant.now().minus(30, ChronoUnit.DAYS).getEpochSecond();
 
     @JsonProperty("to")
-    private Long to;
+    private Long to = Instant.now().getEpochSecond();
 
     public Integer getWalletId() {
         return walletId;
@@ -27,7 +30,9 @@ public class GetStatisticRequest {
     }
 
     public GetStatisticRequest setFrom(Long from) {
-        this.from = from;
+        if (from != null) {
+            this.from = from;
+        }
         return this;
     }
 
@@ -36,7 +41,9 @@ public class GetStatisticRequest {
     }
 
     public GetStatisticRequest setTo(Long to) {
-        this.to = to;
+        if (to != null) {
+            this.to = to;
+        }
         return this;
     }
 }
