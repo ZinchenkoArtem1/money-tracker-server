@@ -13,8 +13,15 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
     @Query("""
             select t from Transaction t
             where t.wallet.walletId = :id
+            order by t.createdAt
             """)
     List<Transaction> findAllByWalletId(Integer id);
+
+    @Query("""
+            select t from Transaction t
+            order by t.createdAt
+            """)
+    List<Transaction> findAll();
 
     @Query("""
             select t from Transaction t
