@@ -2,10 +2,9 @@ spring:
   application:
     name: money-tracker
   datasource:
-    url: jdbc:postgresql://db:5432/money_tracker?currentSchema=money_tracker
-    username: local_user
-    password: local_password
-
+    url: jdbc:postgresql://money-tracked-db.cqch7nyjx4wc.eu-central-1.rds.amazonaws.com:5432/money_tracker?currentSchema=money_tracker
+    username: postgres
+    password: 710564QWE
 authorization:
   header: Authorization
   ttl: 12H
