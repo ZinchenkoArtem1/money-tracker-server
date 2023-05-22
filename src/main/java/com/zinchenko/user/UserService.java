@@ -1,5 +1,6 @@
 package com.zinchenko.user;
 
+import com.zinchenko.security.SecurityUserService;
 import com.zinchenko.user.dto.RegistrationRequest;
 import com.zinchenko.user.model.Role;
 import com.zinchenko.user.model.User;
@@ -10,14 +11,22 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final SecurityUserService securityUserService;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, SecurityUserService securityUserService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.securityUserService = securityUserService;
         this.passwordEncoder = passwordEncoder;
     }
 
     public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalStateException("User with email [%s] not found".formatted(email)));
+    }
+
+    public User getActiveUser() {
+        String email = securityUserService.getActiveUser().getUsername();
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalStateException("User with email [%s] not found".formatted(email)));
     }

@@ -1,6 +1,7 @@
 package com.zinchenko.transaction.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zinchenko.wallet.domain.WalletType;
 
 import java.time.Instant;
 
@@ -29,6 +30,9 @@ public class TransactionDto {
 
     @JsonProperty("currency_name")
     private String currencyName;
+
+    @JsonProperty("wallet_type")
+    private WalletType walletType;
 
     public Integer getId() {
         return id;
@@ -99,6 +103,15 @@ public class TransactionDto {
 
     public TransactionDto setCurrencyName(String currencyName) {
         this.currencyName = currencyName;
+        return this;
+    }
+
+    public WalletType getWalletType() {
+        return walletType;
+    }
+
+    public TransactionDto setWalletType(WalletType walletType) {
+        this.walletType = walletType;
         return this;
     }
 }

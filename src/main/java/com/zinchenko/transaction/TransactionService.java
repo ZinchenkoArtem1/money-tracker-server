@@ -1,13 +1,10 @@
 package com.zinchenko.transaction;
 
 import com.zinchenko.admin.category.CategoryService;
-import com.zinchenko.admin.category.domain.Category;
 import com.zinchenko.common.money.MoneyConvertor;
-import com.zinchenko.monobank.integration.dto.StatementResponse;
 import com.zinchenko.transaction.domain.Transaction;
 import com.zinchenko.transaction.domain.TransactionRepository;
 import com.zinchenko.transaction.dto.TransactionDto;
-import com.zinchenko.wallet.domain.Wallet;
 import com.zinchenko.wallet.domain.WalletRepository;
 import org.springframework.stereotype.Service;
 
@@ -48,63 +45,30 @@ public class TransactionService {
         return transactionConvertor.toDto(getTransaction(id));
     }
 
-    public Transaction getTransaction(Integer id) {
-        return transactionRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("Transaction with id [%s] not found".formatted(id)));
-    }
-
-    public void create(TransactionDto transactionDto) {
-        if (transactionDto.getId() != null) {
-            throw new IllegalStateException("Request body must not contain id for the create transaction operation");
-        } else {
-            Category category = categoryService.getCategory(transactionDto.getCategoryId());
-            Wallet wallet = getWallet(transactionDto.getWalletId());
-            Transaction transaction = transactionConvertor.fromDto(transactionDto, category, wallet);
-            wallet.setActualBalanceInCents(wallet.getActualBalanceInCents() + transaction.getAmountInCents());
-            transactionRepository.save(transaction);
-        }
-    }
-
-    public void update(TransactionDto transactionDto) {
-        checkExist(transactionDto.getId());
-        Transaction transaction = getTransaction(transactionDto.getId());
-        Category category = categoryService.getCategory(transactionDto.getCategoryId());
-        Wallet wallet = transaction.getWallet();
-        wallet.setActualBalanceInCents(wallet.getActualBalanceInCents() - transaction.getAmountInCents() + moneyConvertor.toCents(transactionDto.getAmountInUnits()));
-        transaction.setDescription(transactionDto.getDescription())
-                .setAmountInCents(moneyConvertor.toCents(transactionDto.getAmountInUnits()))
-                .setCategory(category);
+    public void update(Transaction transaction) {
         transactionRepository.save(transaction);
     }
 
-    public void deleteById(Integer id) {
-        checkExist(id);
-        Transaction transaction = getTransaction(id);
-        Wallet wallet = transaction.getWallet();
-        wallet.setActualBalanceInCents(wallet.getActualBalanceInCents() - transaction.getAmountInCents());
+    public void delete(Integer id) {
         transactionRepository.deleteById(id);
     }
 
-    public void addMonobankTransactions(List<StatementResponse> statements, Integer walletId) {
-        addMonobankTransactions(statements, getWallet(walletId));
+    public void save(Transaction transaction) {
+        transactionRepository.save(transaction);
     }
 
-    public void addMonobankTransactions(List<StatementResponse> statements, Wallet wallet) {
-        List<Transaction> transactions = statements.stream()
-                .map(st -> transactionConvertor.fromMonobankTransaction(st, wallet))
-                .toList();
-
+    public void saveAll(List<Transaction> transactions) {
         transactionRepository.saveAll(transactions);
     }
 
-    private void checkExist(Integer id) {
+    public void checkExist(Integer id) {
         if (!transactionRepository.existsById(id)) {
             throw new IllegalStateException("Transaction with id [%s] not found".formatted(id));
         }
     }
 
-    private Wallet getWallet(Integer id) {
-        return walletRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("Wallet with id [%s] not exist".formatted(id)));
+    public Transaction getTransaction(Integer id) {
+        return transactionRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Transaction with id [%s] not found".formatted(id)));
     }
 }

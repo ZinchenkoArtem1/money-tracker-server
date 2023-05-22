@@ -1,1 +1,1 @@
-create schema money_tracker
+create schema money_tracker;

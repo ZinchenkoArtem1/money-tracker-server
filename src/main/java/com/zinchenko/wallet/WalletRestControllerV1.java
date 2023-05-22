@@ -1,6 +1,9 @@
 package com.zinchenko.wallet;
 
 
+import com.zinchenko.wallet.manual.ManualWalletService;
+import com.zinchenko.monobank.MonobankWalletService;
+import com.zinchenko.wallet.domain.WalletType;
 import com.zinchenko.wallet.dto.CreateWalletRequest;
 import com.zinchenko.wallet.dto.UpdateWalletRequest;
 import com.zinchenko.wallet.dto.WalletDto;
@@ -16,9 +19,13 @@ import java.util.List;
 public class WalletRestControllerV1 {
 
     private final WalletService walletService;
+    private final MonobankWalletService monobankWalletService;
+    private final ManualWalletService manualWalletService;
 
-    public WalletRestControllerV1(WalletService walletService) {
+    public WalletRestControllerV1(WalletService walletService, MonobankWalletService monobankWalletService, ManualWalletService manualWalletService) {
         this.walletService = walletService;
+        this.monobankWalletService = monobankWalletService;
+        this.manualWalletService = manualWalletService;
     }
 
     @GetMapping
@@ -36,13 +43,19 @@ public class WalletRestControllerV1 {
     @PostMapping
     @PreAuthorize("hasAuthority('user:all')")
     public void create(@RequestBody CreateWalletRequest createWalletRequest) {
-        walletService.create(createWalletRequest);
+        if (createWalletRequest.getWalletType() == WalletType.MANUAL) {
+            manualWalletService.createManualWallet(createWalletRequest);
+        } else if (createWalletRequest.getWalletType() == WalletType.MONOBANK) {
+            monobankWalletService.createMonobankWallet(createWalletRequest);
+        } else {
+            throw new IllegalStateException("Unexpected wallet type [%s]".formatted(createWalletRequest.getWalletType()));
+        }
     }
 
     @PostMapping("/edit")
     @PreAuthorize("hasAuthority('user:all')")
     public void update(@RequestBody UpdateWalletRequest updateWalletRequest) {
-        walletService.update(updateWalletRequest);
+        walletService.updateName(updateWalletRequest);
     }
 
     @DeleteMapping("/{id}")

@@ -7,3 +7,4 @@ RUN gradle build
 EXPOSE 8080
 
 CMD gradle startSpringBoot
+

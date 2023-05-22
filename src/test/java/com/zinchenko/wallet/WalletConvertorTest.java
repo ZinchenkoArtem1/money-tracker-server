@@ -59,12 +59,12 @@ class WalletConvertorTest {
     void toManualWallet() {
         User user = mock(User.class);
 
-        Wallet wallet = walletConvertor.toManualWallet(NAME, CURRENCY, user, BALANCE_UNITS);
+        Wallet wallet = walletConvertor.toWallet(NAME, CURRENCY, user, BALANCE_UNITS, WalletType.MONOBANK);
 
-        assertEquals(WalletType.MANUAL, wallet.getWalletType());
         assertEquals(BALANCE_CENTS, wallet.getActualBalanceInCents());
         assertEquals(NAME, wallet.getName());
         assertEquals(CURRENCY, wallet.getCurrency());
         assertEquals(user, wallet.getUser());
+        assertEquals(WalletType.MONOBANK, wallet.getWalletType());
     }
 }
