@@ -2,7 +2,7 @@ package com.zinchenko.wallet.domain;
 
 
 import com.zinchenko.admin.currency.domain.Currency;
-import com.zinchenko.user.model.User;
+import com.zinchenko.user.domain.User;
 import com.zinchenko.transaction.domain.Transaction;
 import jakarta.persistence.*;
 

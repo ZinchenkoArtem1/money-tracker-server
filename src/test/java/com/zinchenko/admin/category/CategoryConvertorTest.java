@@ -1,19 +1,17 @@
 package com.zinchenko.admin.category;
 
+import com.zinchenko.RandomGenerator;
 import com.zinchenko.admin.category.domain.Category;
 import com.zinchenko.admin.category.dto.CategoryDto;
-import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class CategoryConvertorTest {
+class CategoryConvertorTest extends RandomGenerator {
 
     private CategoryConvertor categoryConvertor;
 
@@ -24,9 +22,7 @@ class CategoryConvertorTest {
 
     @Test
     void toDtoTest() {
-        Category category = new Category()
-                .setCategoryId(RandomUtils.nextInt())
-                .setName(UUID.randomUUID().toString());
+        Category category = random(Category.class);
 
         CategoryDto categoryDto = categoryConvertor.toDto(category);
 
@@ -36,9 +32,7 @@ class CategoryConvertorTest {
 
     @Test
     void fromDtoTest() {
-        CategoryDto categoryDto = new CategoryDto()
-                .setId(RandomUtils.nextInt())
-                .setName(UUID.randomUUID().toString());
+        CategoryDto categoryDto = random(CategoryDto.class);
 
         Category category = categoryConvertor.fromDto(categoryDto);
 

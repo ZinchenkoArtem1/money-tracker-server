@@ -2,7 +2,7 @@ package com.zinchenko.wallet;
 
 import com.zinchenko.admin.currency.domain.Currency;
 import com.zinchenko.common.money.MoneyConvertor;
-import com.zinchenko.user.model.User;
+import com.zinchenko.user.domain.User;
 import com.zinchenko.wallet.domain.Wallet;
 import com.zinchenko.wallet.domain.WalletType;
 import com.zinchenko.wallet.dto.WalletDto;
@@ -35,5 +35,9 @@ public class WalletConvertor {
                 .setCurrency(currency)
                 .setUser(user)
                 .setWalletType(walletType);
+    }
+
+    public Wallet toWallet(String name, Currency currency, User user, Long actualBalanceInCents, WalletType walletType) {
+        return toWallet(name, currency, user, moneyConvertor.toUnits(actualBalanceInCents), walletType);
     }
 }

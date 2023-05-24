@@ -1,7 +1,7 @@
 package com.zinchenko.security;
 
-import com.zinchenko.user.UserRepository;
-import com.zinchenko.user.model.User;
+import com.zinchenko.user.domain.UserRepository;
+import com.zinchenko.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

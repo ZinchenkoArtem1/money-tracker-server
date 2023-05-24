@@ -1,4 +1,4 @@
-package com.zinchenko.wallet.manual;
+package com.zinchenko.manual;
 
 import com.zinchenko.admin.currency.CurrencyService;
 import com.zinchenko.wallet.WalletService;
@@ -17,8 +17,9 @@ public class ManualWalletService {
         this.currencyService = currencyService;
     }
 
-    public void createManualWallet(CreateWalletRequest request) {
-        walletService.save(request.getName(), currencyService.getCurrency(request.getCurrencyId()),
+    public void saveManualWallet(CreateWalletRequest request) {
+        walletService.save(
+                request.getName(), currencyService.getCurrency(request.getCurrencyId()),
                 request.getActualBalanceInUnits(), WalletType.MANUAL
         );
     }

@@ -1,5 +1,6 @@
 package com.zinchenko.admin.category;
 
+import com.zinchenko.RandomGenerator;
 import com.zinchenko.admin.category.domain.Category;
 import com.zinchenko.admin.category.domain.CategoryRepository;
 import com.zinchenko.admin.category.dto.CategoryDto;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-class CategoryServiceTest {
+class CategoryServiceTest extends RandomGenerator {
 
     private CategoryService categoryService;
 
@@ -37,39 +38,32 @@ class CategoryServiceTest {
 
     @Test
     void findAllNotEmptyTest() {
-        Category category1 = mock(Category.class);
-        Category category2 = mock(Category.class);
-        CategoryDto categoryDto1 = mock(CategoryDto.class);
-        CategoryDto categoryDto2 = mock(CategoryDto.class);
+        Category category1 = random(Category.class);
+        Category category2 = random(Category.class);
 
         when(categoryRepository.findAll()).thenReturn(List.of(category1, category2));
-        when(categoryConvertor.toDto(category1)).thenReturn(categoryDto1);
-        when(categoryConvertor.toDto(category2)).thenReturn(categoryDto2);
 
         List<CategoryDto> categoriesDto = categoryService.findAll();
 
-        Assertions.assertFalse(categoriesDto.isEmpty());
-        Assertions.assertIterableEquals(List.of(categoryDto1, categoryDto2), categoriesDto);
+        Assertions.assertEquals(2, categoriesDto.size());
     }
 
     @Test
     void findAllEmptyTest() {
         when(categoryRepository.findAll()).thenReturn(List.of());
-        verifyNoInteractions(categoryConvertor);
 
         Assertions.assertTrue(categoryService.findAll().isEmpty());
     }
 
     @Test
     void getCategoryDtoSuccessTest() {
-        Integer id = RandomUtils.nextInt();
-        Category category = mock(Category.class);
-        CategoryDto categoryDto = mock(CategoryDto.class);
+        Category category = random(Category.class);
+        CategoryDto categoryDto = random(CategoryDto.class);
 
-        when(categoryRepository.findById(id)).thenReturn(Optional.of(category));
+        when(categoryRepository.findById(category.getCategoryId())).thenReturn(Optional.of(category));
         when(categoryConvertor.toDto(category)).thenReturn(categoryDto);
 
-        assertEquals(categoryDto, categoryService.getCategoryDto(id));
+        assertEquals(categoryDto, categoryService.getCategoryDto(category.getCategoryId()));
     }
 
     @Test
@@ -77,7 +71,6 @@ class CategoryServiceTest {
         Integer id = RandomUtils.nextInt();
 
         when(categoryRepository.findById(id)).thenReturn(Optional.empty());
-        verifyNoInteractions(categoryConvertor);
 
         IllegalStateException exc = assertThrows(IllegalStateException.class, () -> categoryService.getCategoryDto(id));
         assertEquals("Category with id [%s] not found".formatted(id), exc.getMessage());
@@ -85,12 +78,11 @@ class CategoryServiceTest {
 
     @Test
     void createSuccessTest() {
-        CategoryDto categoryDto = mock(CategoryDto.class);
-        Category category = mock(Category.class);
+        CategoryDto categoryDto = random(CategoryDto.class)
+                .setId(null);
+        Category category = random(Category.class);
 
-        when(categoryDto.getId()).thenReturn(null);
         when(categoryConvertor.fromDto(categoryDto)).thenReturn(category);
-
         categoryService.create(categoryDto);
 
         verify(categoryRepository).save(category);

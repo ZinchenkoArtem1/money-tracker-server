@@ -1,4 +1,4 @@
-package com.zinchenko.user.model;
+package com.zinchenko.user.domain;
 
 public enum Permission {
     USER_ALL("user:all"),

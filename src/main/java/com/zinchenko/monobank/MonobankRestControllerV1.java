@@ -15,22 +15,22 @@ import java.util.List;
 @RequestMapping("/api/v1/monobank")
 public class MonobankRestControllerV1 {
 
-    private final MonobankWalletService monobankWalletService;
+    private final MonobankService monobankService;
 
-    public MonobankRestControllerV1(MonobankWalletService monobankWalletService) {
-        this.monobankWalletService = monobankWalletService;
+    public MonobankRestControllerV1(MonobankService monobankService) {
+        this.monobankService = monobankService;
     }
 
     @PostMapping("/getAccounts")
     @PreAuthorize("hasAuthority('user:all')")
     public ResponseEntity<List<ClientAccountResponse>> getClientAccounts(@RequestBody ClientAccountRequest clientAccountRequest) {
-        return ResponseEntity.ok(monobankWalletService.getClientAccounts(clientAccountRequest));
+        return ResponseEntity.ok(monobankService.getClientAccounts(clientAccountRequest));
     }
 
     @PostMapping("/sync")
     @PreAuthorize("hasAuthority('user:all')")
     public ResponseEntity<Void> syncWalletTransactions(@RequestBody SyncWalletTransactionsRequest syncWalletTransactionsRequest) {
-        monobankWalletService.syncMonobankWallet(syncWalletTransactionsRequest);
+        monobankService.syncMonobankWallet(syncWalletTransactionsRequest);
         return ResponseEntity.ok().build();
     }
 }

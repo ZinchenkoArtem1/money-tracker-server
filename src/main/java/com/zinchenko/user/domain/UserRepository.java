@@ -1,6 +1,5 @@
-package com.zinchenko.user;
+package com.zinchenko.user.domain;
 
-import com.zinchenko.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
