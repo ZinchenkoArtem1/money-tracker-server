@@ -36,4 +36,8 @@ public class WalletConvertor {
                 .setUser(user)
                 .setWalletType(walletType);
     }
+
+    public Wallet toWallet(String name, Currency currency, User user, Long actualBalanceInCents, WalletType walletType) {
+        return toWallet(name, currency, user, moneyConvertor.toUnits(actualBalanceInCents), walletType);
+    }
 }

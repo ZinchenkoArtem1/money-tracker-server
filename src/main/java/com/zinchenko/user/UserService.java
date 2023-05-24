@@ -4,6 +4,7 @@ import com.zinchenko.security.SecurityUserService;
 import com.zinchenko.user.dto.RegistrationRequest;
 import com.zinchenko.user.model.Role;
 import com.zinchenko.user.model.User;
+import com.zinchenko.user.model.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

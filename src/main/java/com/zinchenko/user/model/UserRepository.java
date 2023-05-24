@@ -1,4 +1,4 @@
-package com.zinchenko.user;
+package com.zinchenko.user.model;
 
 import com.zinchenko.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

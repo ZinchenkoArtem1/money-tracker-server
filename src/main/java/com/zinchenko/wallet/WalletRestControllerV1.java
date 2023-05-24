@@ -1,11 +1,11 @@
 package com.zinchenko.wallet;
 
 
-import com.zinchenko.wallet.manual.ManualWalletService;
+import com.zinchenko.manual.ManualWalletService;
+import com.zinchenko.monobank.MonobankService;
 import com.zinchenko.monobank.MonobankWalletService;
 import com.zinchenko.wallet.domain.WalletType;
 import com.zinchenko.wallet.dto.CreateWalletRequest;
-import com.zinchenko.wallet.dto.UpdateWalletRequest;
 import com.zinchenko.wallet.dto.WalletDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +22,8 @@ public class WalletRestControllerV1 {
     private final MonobankWalletService monobankWalletService;
     private final ManualWalletService manualWalletService;
 
-    public WalletRestControllerV1(WalletService walletService, MonobankWalletService monobankWalletService, ManualWalletService manualWalletService) {
+    public WalletRestControllerV1(WalletService walletService, MonobankWalletService monobankWalletService,
+                                  ManualWalletService manualWalletService) {
         this.walletService = walletService;
         this.monobankWalletService = monobankWalletService;
         this.manualWalletService = manualWalletService;
@@ -43,19 +44,13 @@ public class WalletRestControllerV1 {
     @PostMapping
     @PreAuthorize("hasAuthority('user:all')")
     public void create(@RequestBody CreateWalletRequest createWalletRequest) {
-        if (createWalletRequest.getWalletType() == WalletType.MANUAL) {
-            manualWalletService.createManualWallet(createWalletRequest);
-        } else if (createWalletRequest.getWalletType() == WalletType.MONOBANK) {
+        if (createWalletRequest.getWalletType() == WalletType.MONOBANK) {
             monobankWalletService.createMonobankWallet(createWalletRequest);
+        } else if (createWalletRequest.getWalletType() == WalletType.MANUAL){
+            manualWalletService.saveManualWallet(createWalletRequest);
         } else {
-            throw new IllegalStateException("Unexpected wallet type [%s]".formatted(createWalletRequest.getWalletType()));
+            throw new IllegalStateException();
         }
-    }
-
-    @PostMapping("/edit")
-    @PreAuthorize("hasAuthority('user:all')")
-    public void update(@RequestBody UpdateWalletRequest updateWalletRequest) {
-        walletService.updateName(updateWalletRequest);
     }
 
     @DeleteMapping("/{id}")

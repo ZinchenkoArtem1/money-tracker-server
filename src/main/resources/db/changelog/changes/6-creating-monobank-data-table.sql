@@ -8,5 +8,5 @@ CREATE TABLE Monobank_Data
 
     CONSTRAINT fk_wallet
         FOREIGN KEY (wallet_id)
-            REFERENCES wallets (wallet_id)
+            REFERENCES wallets (wallet_id) ON DELETE CASCADE
 );

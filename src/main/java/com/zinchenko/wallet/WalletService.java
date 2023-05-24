@@ -5,7 +5,6 @@ import com.zinchenko.user.UserService;
 import com.zinchenko.wallet.domain.Wallet;
 import com.zinchenko.wallet.domain.WalletRepository;
 import com.zinchenko.wallet.domain.WalletType;
-import com.zinchenko.wallet.dto.UpdateWalletRequest;
 import com.zinchenko.wallet.dto.WalletDto;
 import org.springframework.stereotype.Component;
 
@@ -25,18 +24,12 @@ public class WalletService {
     }
 
     public List<WalletDto> getAllUserWalletsDto() {
-        return getAllUserWallets().stream()
-                .map(walletConvertor::toWalletDto)
-                .toList();
-    }
-
-    public List<Wallet> getAllUserWallets() {
         String email = userService.getActiveUser().getEmail();
 
         return walletRepository.findByUserEmail(email).stream()
+                .map(walletConvertor::toWalletDto)
                 .toList();
     }
-
 
     public WalletDto getWalletDto(Integer id) {
         Wallet wallet = getWallet(id);
@@ -49,21 +42,21 @@ public class WalletService {
         ));
     }
 
-    public void updateName(UpdateWalletRequest request) {
-        Wallet wallet = getWallet(request.getId());
-        wallet.setName(request.getName());
-        walletRepository.save(wallet);
-    }
-
-    public void updateBalance(Integer walletId, Long actualBalanceInCents) {
-        Wallet wallet = getWallet(walletId);
-        wallet.setActualBalanceInCents(actualBalanceInCents);
-        walletRepository.save(wallet);
+    public Wallet save(String name, Currency currency, Long actualBalanceInCents, WalletType walletType) {
+        return walletRepository.save(walletConvertor.toWallet(
+                name, currency, userService.getActiveUser(), actualBalanceInCents, walletType
+        ));
     }
 
     public void deleteById(Integer id) {
         checkExist(id);
         walletRepository.deleteById(id);
+    }
+
+    public void updateBalance(Integer walletId, Long newBalanceInCents) {
+        Wallet wallet = getWallet(walletId);
+        wallet.setActualBalanceInCents(newBalanceInCents);
+        walletRepository.save(wallet);
     }
 
     public Wallet getWallet(Integer id) {

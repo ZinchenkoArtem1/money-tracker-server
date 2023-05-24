@@ -31,7 +31,7 @@ public class TransactionConvertor {
                 .setWalletType(transaction.getWallet().getWalletType());
     }
 
-    public Transaction fromManualTransaction(TransactionDto transactionDto, Category category, Wallet wallet) {
+    public Transaction fromDto(TransactionDto transactionDto, Category category, Wallet wallet) {
         return new Transaction()
                 .setCreatedAt(Instant.now())
                 .setAmountInCents(moneyConvertor.toCents(transactionDto.getAmountInUnits()))
