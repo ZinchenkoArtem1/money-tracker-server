@@ -19,8 +19,6 @@ public class MonobankTransactionService {
     }
 
     public void update(TransactionDto transactionDto) {
-        transactionService.checkExist(transactionDto.getId());
-
         Transaction transaction = transactionService.getTransaction(transactionDto.getId());
         Category category = categoryService.getCategory(transactionDto.getCategoryId());
         transaction.setCategory(category);

@@ -1,6 +1,6 @@
 package com.zinchenko.transaction;
 
-import com.zinchenko.AbstractTest;
+import com.zinchenko.RandomGenerator;
 import com.zinchenko.common.money.MoneyConvertor;
 import com.zinchenko.transaction.domain.Transaction;
 import com.zinchenko.transaction.dto.TransactionDto;
@@ -12,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class TransactionConvertorTest extends AbstractTest {
+class TransactionConvertorTest extends RandomGenerator {
 
     private TransactionConvertor transactionConvertor;
 

@@ -1,8 +1,8 @@
 package com.zinchenko.security;
 
-import com.zinchenko.user.model.Role;
-import com.zinchenko.user.model.User;
-import com.zinchenko.user.model.UserRepository;
+import com.zinchenko.user.domain.Role;
+import com.zinchenko.user.domain.User;
+import com.zinchenko.user.domain.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -3,7 +3,7 @@ package com.zinchenko.user;
 import com.zinchenko.security.jwt.JwtTokenService;
 import com.zinchenko.user.dto.AuthenticationRequest;
 import com.zinchenko.user.dto.AuthenticationResponse;
-import com.zinchenko.user.model.User;
+import com.zinchenko.user.domain.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,6 @@ package com.zinchenko.wallet;
 
 
 import com.zinchenko.manual.ManualWalletService;
-import com.zinchenko.monobank.MonobankService;
 import com.zinchenko.monobank.MonobankWalletService;
 import com.zinchenko.wallet.domain.WalletType;
 import com.zinchenko.wallet.dto.CreateWalletRequest;
@@ -46,7 +45,7 @@ public class WalletRestControllerV1 {
     public void create(@RequestBody CreateWalletRequest createWalletRequest) {
         if (createWalletRequest.getWalletType() == WalletType.MONOBANK) {
             monobankWalletService.createMonobankWallet(createWalletRequest);
-        } else if (createWalletRequest.getWalletType() == WalletType.MANUAL){
+        } else if (createWalletRequest.getWalletType() == WalletType.MANUAL) {
             manualWalletService.saveManualWallet(createWalletRequest);
         } else {
             throw new IllegalStateException();

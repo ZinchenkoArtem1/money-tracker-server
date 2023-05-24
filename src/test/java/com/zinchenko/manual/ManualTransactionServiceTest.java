@@ -1,6 +1,6 @@
 package com.zinchenko.manual;
 
-import com.zinchenko.AbstractTest;
+import com.zinchenko.RandomGenerator;
 import com.zinchenko.admin.category.CategoryService;
 import com.zinchenko.admin.category.domain.Category;
 import com.zinchenko.common.money.MoneyConvertor;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ManualTransactionServiceTest extends AbstractTest {
+class ManualTransactionServiceTest extends RandomGenerator {
 
     private ManualTransactionService manualTransactionService;
 

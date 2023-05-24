@@ -1,6 +1,6 @@
 package com.zinchenko.admin.category;
 
-import com.zinchenko.AbstractTest;
+import com.zinchenko.RandomGenerator;
 import com.zinchenko.admin.category.domain.Category;
 import com.zinchenko.admin.category.domain.CategoryRepository;
 import com.zinchenko.admin.category.dto.CategoryDto;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-class CategoryServiceTest extends AbstractTest {
+class CategoryServiceTest extends RandomGenerator {
 
     private CategoryService categoryService;
 

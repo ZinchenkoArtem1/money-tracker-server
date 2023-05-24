@@ -3,7 +3,7 @@ package com.zinchenko.wallet;
 
 import com.zinchenko.admin.currency.domain.Currency;
 import com.zinchenko.user.UserService;
-import com.zinchenko.user.model.User;
+import com.zinchenko.user.domain.User;
 import com.zinchenko.wallet.domain.Wallet;
 import com.zinchenko.wallet.domain.WalletRepository;
 import com.zinchenko.wallet.domain.WalletType;

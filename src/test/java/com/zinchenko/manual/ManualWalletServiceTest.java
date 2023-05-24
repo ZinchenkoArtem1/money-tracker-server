@@ -1,6 +1,6 @@
 package com.zinchenko.manual;
 
-import com.zinchenko.AbstractTest;
+import com.zinchenko.RandomGenerator;
 import com.zinchenko.admin.currency.CurrencyService;
 import com.zinchenko.admin.currency.domain.Currency;
 import com.zinchenko.wallet.WalletService;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ManualWalletServiceTest extends AbstractTest {
+class ManualWalletServiceTest extends RandomGenerator {
 
     @Mock
     private WalletService walletService;

@@ -3,8 +3,6 @@ package com.zinchenko.transaction.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zinchenko.wallet.domain.WalletType;
 
-import java.time.Instant;
-
 public class TransactionDto {
 
     @JsonProperty("id")

@@ -1,6 +1,6 @@
 package com.zinchenko.transaction;
 
-import com.zinchenko.AbstractTest;
+import com.zinchenko.RandomGenerator;
 import com.zinchenko.transaction.domain.Transaction;
 import com.zinchenko.transaction.domain.TransactionRepository;
 import com.zinchenko.transaction.dto.TransactionDto;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class TransactionServiceTest extends AbstractTest {
+class TransactionServiceTest extends RandomGenerator {
 
     @Mock
     private TransactionRepository transactionRepository;

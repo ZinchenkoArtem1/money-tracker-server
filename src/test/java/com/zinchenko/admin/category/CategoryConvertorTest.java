@@ -1,6 +1,6 @@
 package com.zinchenko.admin.category;
 
-import com.zinchenko.AbstractTest;
+import com.zinchenko.RandomGenerator;
 import com.zinchenko.admin.category.domain.Category;
 import com.zinchenko.admin.category.dto.CategoryDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class CategoryConvertorTest extends AbstractTest {
+class CategoryConvertorTest extends RandomGenerator {
 
     private CategoryConvertor categoryConvertor;
 

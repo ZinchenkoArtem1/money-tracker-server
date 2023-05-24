@@ -1,6 +1,6 @@
 package com.zinchenko.manual;
 
-import com.zinchenko.AbstractTest;
+import com.zinchenko.RandomGenerator;
 import com.zinchenko.admin.category.domain.Category;
 import com.zinchenko.common.money.MoneyConvertor;
 import com.zinchenko.transaction.domain.Transaction;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
-class ManualConvertorTest extends AbstractTest {
+class ManualConvertorTest extends RandomGenerator {
 
     private ManualConvertor manualConvertor;
 

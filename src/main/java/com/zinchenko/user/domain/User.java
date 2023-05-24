@@ -1,4 +1,4 @@
-package com.zinchenko.user.model;
+package com.zinchenko.user.domain;
 
 import jakarta.persistence.*;
 
