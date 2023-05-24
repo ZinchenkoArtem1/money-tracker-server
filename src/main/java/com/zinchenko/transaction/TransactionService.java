@@ -3,6 +3,7 @@ package com.zinchenko.transaction;
 import com.zinchenko.transaction.domain.Transaction;
 import com.zinchenko.transaction.domain.TransactionRepository;
 import com.zinchenko.transaction.dto.TransactionDto;
+import com.zinchenko.user.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,14 +13,16 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final TransactionConvertor transactionConvertor;
+    private final UserService userService;
 
-    public TransactionService(TransactionRepository transactionRepository, TransactionConvertor transactionConvertor) {
+    public TransactionService(TransactionRepository transactionRepository, TransactionConvertor transactionConvertor, UserService userService) {
         this.transactionRepository = transactionRepository;
         this.transactionConvertor = transactionConvertor;
+        this.userService = userService;
     }
 
     public List<TransactionDto> findAll() {
-        return transactionRepository.findAll().stream()
+        return transactionRepository.findAllByUserId(userService.getActiveUser().getUserId()).stream()
                 .map(transactionConvertor::toDto)
                 .toList();
     }

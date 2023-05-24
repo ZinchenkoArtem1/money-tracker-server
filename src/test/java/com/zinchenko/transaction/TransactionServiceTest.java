@@ -4,6 +4,8 @@ import com.zinchenko.RandomGenerator;
 import com.zinchenko.transaction.domain.Transaction;
 import com.zinchenko.transaction.domain.TransactionRepository;
 import com.zinchenko.transaction.dto.TransactionDto;
+import com.zinchenko.user.UserService;
+import com.zinchenko.user.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,21 +27,25 @@ class TransactionServiceTest extends RandomGenerator {
     private TransactionRepository transactionRepository;
     @Mock
     private TransactionConvertor transactionConvertor;
+    @Mock
+    private UserService userService;
 
     private TransactionService transactionService;
 
     @BeforeEach
     void setUp() {
-        transactionService = new TransactionService(transactionRepository, transactionConvertor);
+        transactionService = new TransactionService(transactionRepository, transactionConvertor, userService);
     }
 
     @Test
     void findAllTest() {
         Transaction transaction = random(Transaction.class);
         TransactionDto transactionDto = random(TransactionDto.class);
+        User user = random(User.class);
 
+        when(userService.getActiveUser()).thenReturn(user);
         when(transactionConvertor.toDto(transaction)).thenReturn(transactionDto);
-        when(transactionRepository.findAll()).thenReturn(List.of(transaction));
+        when(transactionRepository.findAllByUserId(user.getUserId())).thenReturn(List.of(transaction));
 
         Assertions.assertIterableEquals(List.of(transactionDto), transactionService.findAll());
     }

@@ -5,8 +5,7 @@ import com.zinchenko.statistic.dto.GetStatisticResponse;
 import com.zinchenko.statistic.dto.StatisticDto;
 import com.zinchenko.transaction.domain.Transaction;
 import com.zinchenko.transaction.domain.TransactionRepository;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.zinchenko.user.UserService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,13 +18,15 @@ import java.util.stream.Collectors;
 public class StatisticService {
 
     private final TransactionRepository transactionRepository;
+    private final UserService userService;
 
-    public StatisticService(TransactionRepository transactionRepository) {
+    public StatisticService(TransactionRepository transactionRepository, UserService userService) {
         this.transactionRepository = transactionRepository;
+        this.userService = userService;
     }
 
     public GetStatisticResponse getStatisticForAllWallets(GetStatisticRequest request) {
-        String email = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        String email = userService.getActiveUser().getEmail();
         List<Transaction> walletTransaction = transactionRepository.findAllByUserInPeriod(
                 email, Instant.ofEpochSecond(request.getFrom()), Instant.ofEpochSecond(request.getTo())
         );

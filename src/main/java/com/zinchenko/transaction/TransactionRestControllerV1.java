@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/transactions")
 public class TransactionRestControllerV1 {
@@ -48,11 +47,7 @@ public class TransactionRestControllerV1 {
     @PostMapping
     @PreAuthorize("hasAuthority('user:all')")
     public void create(@RequestBody TransactionDto transactionDto) {
-        if (transactionDto.getWalletType() == WalletType.MANUAL) {
-            manualTransactionService.create(transactionDto);
-        } else {
-            throw new IllegalStateException();
-        }
+        manualTransactionService.create(transactionDto);
     }
 
     @PostMapping("/edit")

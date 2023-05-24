@@ -25,4 +25,4 @@ databaseChangeLog:
       file: changes/8-add-default-categories.sql
   - include:
       relativeToChangelogFile: true
-      file: changes/9-add-default-admin.sql
+      file: changes/9-add-default-data.sql

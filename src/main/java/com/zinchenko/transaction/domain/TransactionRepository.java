@@ -19,9 +19,10 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
 
     @Query("""
             select t from Transaction t
+            where t.wallet.user.id = :id
             order by t.createdAt desc
             """)
-    List<Transaction> findAll();
+    List<Transaction> findAllByUserId(Integer id);
 
     @Query("""
             select t from Transaction t
