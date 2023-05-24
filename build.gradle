@@ -32,6 +32,7 @@ dependencies {
     testImplementation 'com.squareup.okhttp:mockwebserver:2.7.5'
     testImplementation 'org.springframework.security:spring-security-test:6.1.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.0.4'
+    testImplementation 'uk.co.jemos.podam:podam:7.2.11.RELEASE'
 }
 
 test {

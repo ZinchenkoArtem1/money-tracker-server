@@ -25,9 +25,6 @@ public class TransactionDto {
     @JsonProperty("description")
     private String description;
 
-    @JsonProperty("created_at")
-    private Instant createdAt;
-
     @JsonProperty("currency_name")
     private String currencyName;
 
@@ -85,15 +82,6 @@ public class TransactionDto {
 
     public TransactionDto setDescription(String description) {
         this.description = description;
-        return this;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public TransactionDto setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
         return this;
     }
 
