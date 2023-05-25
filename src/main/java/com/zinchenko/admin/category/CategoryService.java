@@ -6,6 +6,7 @@ import com.zinchenko.admin.category.dto.CategoryDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -31,6 +32,10 @@ public class CategoryService {
     public Category getCategory(Integer id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Category with id [%s] not found".formatted(id)));
+    }
+
+    public Optional<Category> findCategoryByMcc(Integer mcc) {
+        return categoryRepository.findByMcc(mcc);
     }
 
     public void create(CategoryDto categoryDto) {

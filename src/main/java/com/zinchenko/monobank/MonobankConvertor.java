@@ -1,5 +1,6 @@
 package com.zinchenko.monobank;
 
+import com.zinchenko.admin.category.CategoryService;
 import com.zinchenko.admin.category.domain.Category;
 import com.zinchenko.monobank.domain.MonobankData;
 import com.zinchenko.monobank.dto.ClientAccountResponse;
@@ -15,6 +16,11 @@ import java.time.Instant;
 public class MonobankConvertor {
 
     private static final Category DEFAULT_CATEGORY = new Category().setCategoryId(1);
+    private final CategoryService categoryService;
+
+    public MonobankConvertor(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     public ClientAccountResponse toClientAccountResponse(AccountResponse accountResponse) {
         return new ClientAccountResponse()
@@ -36,6 +42,11 @@ public class MonobankConvertor {
                 .setDescription(statementResponse.getDescription())
                 .setWallet(wallet)
                 .setAmountInCents(statementResponse.getAmount())
-                .setCategory(DEFAULT_CATEGORY);
+                .setCategory(mapCategory(statementResponse.getMcc()));
+    }
+
+    private Category mapCategory(Integer mcc) {
+        return categoryService.findCategoryByMcc(mcc)
+                .orElse(DEFAULT_CATEGORY);
     }
 }

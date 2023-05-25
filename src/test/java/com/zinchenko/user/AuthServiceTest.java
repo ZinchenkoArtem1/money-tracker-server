@@ -46,7 +46,7 @@ class AuthServiceTest {
                 .setPassword(password);
 
         when(userService.getUserByEmail(email)).thenReturn(new User().setRole(Role.USER));
-        when(jwtTokenService.createToken(email, Role.USER.name())).thenReturn(token);
+        when(jwtTokenService.generateToken(email, Role.USER.name())).thenReturn(token);
 
         AuthenticationResponse response = authService.auth(request);
 

@@ -14,6 +14,9 @@ public class Category {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "mcc")
+    private Integer mcc;
+
     public Category() {
     }
 
@@ -37,6 +40,15 @@ public class Category {
 
     public Category setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public Integer getMcc() {
+        return mcc;
+    }
+
+    public Category setMcc(Integer mcc) {
+        this.mcc = mcc;
         return this;
     }
 }

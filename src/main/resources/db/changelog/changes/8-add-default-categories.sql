@@ -1,20 +1,60 @@
 /** default category **/
-insert into Categories (name) values ('За замовчуванням');
+insert into Categories (name) values ('Інше');
 
-/** income categories **/
+/** categories with mcc **/
+insert into Categories (name, mcc) values ('Продукти', 5499);
+insert into Categories (name, mcc) values ('Продукти', 5331);
+insert into Categories (name, mcc) values ('Транспорт', 7549);
+insert into Categories (name, mcc) values ('Транспорт', 7538);
+insert into Categories (name, mcc) values ('Транспорт', 7534);
+insert into Categories (name, mcc) values ('Транспорт', 7523);
+insert into Categories (name, mcc) values ('Транспорт', 7542);
+insert into Categories (name, mcc) values ('Транспорт', 7512);
+insert into Categories (name, mcc) values ('Розваги', 8699);
+insert into Categories (name, mcc) values ('Розваги', 7999);
+insert into Categories (name, mcc) values ('Розваги', 7995);
+insert into Categories (name, mcc) values ('Розваги', 7922);
+insert into Categories (name, mcc) values ('Розваги', 7832);
+insert into Categories (name, mcc) values ('Ресторани', 5814);
+insert into Categories (name, mcc) values ('Ресторани', 5813);
+insert into Categories (name, mcc) values ('Ресторани', 5812);
+insert into Categories (name, mcc) values ('Ресторани', 5462);
+insert into Categories (name, mcc) values ('Оренда житла', 6513);
+insert into Categories (name, mcc) values ('Одяг та взуття', 5931);
+insert into Categories (name, mcc) values ('Одяг та взуття', 5699);
+insert into Categories (name, mcc) values ('Одяг та взуття', 5691);
+insert into Categories (name, mcc) values ('Одяг та взуття', 5661);
+insert into Categories (name, mcc) values ('Одяг та взуття', 5611);
+insert into Categories (name, mcc) values ('Одяг та взуття', 5621);
+insert into Categories (name, mcc) values ('Одяг та взуття', 5641);
+insert into Categories (name, mcc) values ('Одяг та взуття', 5655);
+insert into Categories (name, mcc) values ('Подорожі', 7991);
+insert into Categories (name, mcc) values ('Подорожі', 4582);
+insert into Categories (name, mcc) values ('Подорожі', 4112);
+insert into Categories (name, mcc) values ('Подорожі', 4121);
+insert into Categories (name, mcc) values ('Подорожі', 4011);
+insert into Categories (name, mcc) values ('Подорожі', 7011);
+insert into Categories (name, mcc) values ('Подорожі', 4722);
+insert into Categories (name, mcc) values ('Подорожі', 3790);
+insert into Categories (name, mcc) values ('Здоровя', 6399);
+insert into Categories (name, mcc) values ('Здоровя', 8099);
+insert into Categories (name, mcc) values ('Здоровя', 8071);
+insert into Categories (name, mcc) values ('Здоровя', 8062);
+insert into Categories (name, mcc) values ('Здоровя', 8043);
+insert into Categories (name, mcc) values ('Здоровя', 7298);
+insert into Categories (name, mcc) values ('Здоровя', 5912);
+insert into Categories (name, mcc) values ('Здоровя', 5977);
+insert into Categories (name, mcc) values ('Навчання', 8244);
+insert into Categories (name, mcc) values ('Навчання', 8220);
+insert into Categories (name, mcc) values ('Навчання', 8211);
+insert into Categories (name, mcc) values ('Техніка', 5732);
+insert into Categories (name, mcc) values ('Кешбек', 9701);
+insert into Categories (name, mcc) values ('Товари та послуги', 5943);
+insert into Categories (name, mcc) values ('Товари та послуги', 5942);
+insert into Categories (name, mcc) values ('Товари та послуги', 4215);
+insert into Categories (name, mcc) values ('Переказ', 4829);
+
+/** categories with mcc **/
 insert into Categories (name) values ('Зарплата');
-insert into Categories (name) values ('Депозит');
 insert into Categories (name) values ('Подарунок');
-insert into Categories (name) values ('Продаж');
-insert into Categories (name) values ('Здача будинку');
-
-/** expense categories **/
-insert into Categories (name) values ('Продукти');
-insert into Categories (name) values ('Транспорт');
-insert into Categories (name) values ('Ресторани');
-insert into Categories (name) values ('Оренда житла');
-insert into Categories (name) values ('Одяг');
-insert into Categories (name) values ('Подорожі');
-insert into Categories (name) values ('Здоровя');
-insert into Categories (name) values ('Навчання');
-insert into Categories (name) values ('Техніка');
+insert into Categories (name) values ('Депозит');
