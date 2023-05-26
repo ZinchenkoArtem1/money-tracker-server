@@ -1,6 +1,8 @@
 package com.zinchenko.admin.category;
 
 import com.zinchenko.admin.category.domain.Category;
+import com.zinchenko.admin.category.domain.CategoryMcc;
+import com.zinchenko.admin.category.domain.CategoryMccRepository;
 import com.zinchenko.admin.category.domain.CategoryRepository;
 import com.zinchenko.admin.category.dto.CategoryDto;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,13 @@ public class CategoryService {
 
     private final CategoryConvertor categoryConvertor;
     private final CategoryRepository categoryRepository;
+    private final CategoryMccRepository categoryMccRepository;
 
-    public CategoryService(CategoryConvertor categoryConvertor, CategoryRepository categoryRepository) {
+    public CategoryService(CategoryConvertor categoryConvertor, CategoryRepository categoryRepository,
+                           CategoryMccRepository categoryMccRepository) {
         this.categoryConvertor = categoryConvertor;
         this.categoryRepository = categoryRepository;
+        this.categoryMccRepository = categoryMccRepository;
     }
 
     public List<CategoryDto> findAll() {
@@ -35,7 +40,8 @@ public class CategoryService {
     }
 
     public Optional<Category> findCategoryByMcc(Integer mcc) {
-        return categoryRepository.findByMcc(mcc);
+        return categoryMccRepository.findByMcc(mcc)
+                .map(CategoryMcc::getCategory);
     }
 
     public void create(CategoryDto categoryDto) {

@@ -25,4 +25,7 @@ databaseChangeLog:
       file: changes/8-add-default-categories.sql
   - include:
       relativeToChangelogFile: true
-      file: changes/9-add-default-data.sql
+      file: changes/9-add-default-mcc-categories.sql
+  - include:
+      relativeToChangelogFile: true
+      file: changes/10-add-default-users.sql

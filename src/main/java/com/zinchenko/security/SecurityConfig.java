@@ -34,21 +34,20 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityChain(HttpSecurity http) throws Exception {
-        http
+        return http
                 .cors()
                 .and()
                 .csrf()
                 .disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**").permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
+                .authorizeHttpRequests(authorizeHttpRequests ->
+                        authorizeHttpRequests.requestMatchers("/api/v1/auth/**").permitAll()
+                                .anyRequest()
+                                .authenticated()
+                )
+                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     @Bean

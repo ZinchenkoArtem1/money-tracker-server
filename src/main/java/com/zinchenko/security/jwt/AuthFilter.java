@@ -29,9 +29,11 @@ public class AuthFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String token = ((HttpServletRequest) servletRequest).getHeader(authorizationHeader);
         try {
-            jwtTokenService.verifyTokenAndSignature(token);
-            Authentication authentication = jwtTokenService.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            if (token != null) {
+                jwtTokenService.verifyTokenAndSignature(token);
+                Authentication authentication = jwtTokenService.getAuthentication(token);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         } catch (Exception exc) {
             SecurityContextHolder.clearContext();
             throw exc;
