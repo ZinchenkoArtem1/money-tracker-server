@@ -26,10 +26,10 @@ public class MonobankRestControllerV1 {
         return ResponseEntity.ok(monobankService.getClientAccounts(clientAccountRequest));
     }
 
-    @PostMapping("/sync")
+    @PostMapping("/sync/{walletId}")
     @PreAuthorize("hasAuthority('user:all')")
-    public ResponseEntity<Void> syncWalletTransactions(@RequestBody SyncWalletTransactionsRequest syncWalletTransactionsRequest) {
-        monobankService.syncMonobankWallet(syncWalletTransactionsRequest);
+    public ResponseEntity<Void> syncWalletTransactions(@PathVariable("walletId") Integer walletId) {
+        monobankService.syncMonobankWallet(walletId);
         return ResponseEntity.ok().build();
     }
 }

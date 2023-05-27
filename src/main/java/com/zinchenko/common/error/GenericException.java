@@ -13,7 +13,7 @@ public class GenericException extends RuntimeException {
 
     public GenericException(String message) {
         super(message);
-        this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        this.httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
     }
 
     public HttpStatus getHttpStatus() {

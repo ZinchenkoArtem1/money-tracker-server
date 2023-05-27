@@ -2,9 +2,9 @@ spring:
   application:
     name: money-tracker
   datasource:
-    url: jdbc:postgresql://localhost:5432/money_tracker?currentSchema=money_tracker
-    username: local_user
-    password: local_password
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?currentSchema=${DB_SCHEMA} # jdbc:postgresql://money-tracker-db.cqch7nyjx4wc.eu-central-1.rds.amazonaws.com:5432/money_tracker?currentSchema=money_tracker
+    username: ${DB_USERNAME} #   postgres
+    password: ${DB_PASSWORD} #  "[ThAT-0pc6][|u{KFS{c!pQwLuia"
 
 authorization:
   header: Authorization

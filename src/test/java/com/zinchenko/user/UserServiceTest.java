@@ -1,5 +1,6 @@
 package com.zinchenko.user;
 
+import com.zinchenko.common.error.GenericException;
 import com.zinchenko.security.SecurityUserService;
 import com.zinchenko.user.dto.RegistrationRequest;
 import com.zinchenko.user.domain.User;
@@ -66,8 +67,8 @@ class UserServiceTest {
 
         when(userRepository.existsByEmailOrPassword(email, password)).thenReturn(true);
 
-        IllegalStateException exc = assertThrows(IllegalStateException.class, () -> userService.create(registrationRequest));
-        assertEquals("User with this email or password already exist in system", exc.getMessage());
+        GenericException exc = assertThrows(GenericException.class, () -> userService.create(registrationRequest));
+        assertEquals("Користувач з таким емейлом чи паролем вже зареєстрований в системі", exc.getMessage());
     }
 
     @Test

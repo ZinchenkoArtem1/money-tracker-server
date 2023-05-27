@@ -43,7 +43,7 @@ class MonobankServiceTest extends RandomGenerator {
     @Mock
     private TransactionService transactionService;
     @Mock
-    private MonobankConvertor monobankConvertor = new MonobankConvertor();
+    private MonobankConvertor monobankConvertor;
 
     private MonobankService monobankService;
 
@@ -87,7 +87,7 @@ class MonobankServiceTest extends RandomGenerator {
         when(walletService.getWallet(walletId)).thenReturn(wallet);
         when(monobankConvertor.fromMonobankTransaction(statementResponse, wallet)).thenReturn(transaction);
 
-        monobankService.syncMonobankWallet(new SyncWalletTransactionsRequest().setWalletId(walletId));
+        monobankService.syncMonobankWallet(walletId);
 
         verify(transactionService).saveAll(List.of(transaction));
         verify(walletService).updateBalance(walletId, accountResponse.getBalance());

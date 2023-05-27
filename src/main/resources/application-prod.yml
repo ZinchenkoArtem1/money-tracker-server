@@ -1,5 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://money-tracker-db.cqch7nyjx4wc.eu-central-1.rds.amazonaws.com:5432/money_tracker?currentSchema=money_tracker
-    username: postgres
-    password: 710564QWE

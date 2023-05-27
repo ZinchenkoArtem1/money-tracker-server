@@ -1,10 +1,12 @@
 package com.zinchenko.user;
 
+import com.zinchenko.common.error.GenericException;
 import com.zinchenko.security.jwt.JwtTokenService;
 import com.zinchenko.user.dto.AuthenticationRequest;
 import com.zinchenko.user.dto.AuthenticationResponse;
 import com.zinchenko.user.domain.User;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,11 @@ public class AuthService {
     }
 
     public AuthenticationResponse auth(AuthenticationRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        } catch (Exception e) {
+            throw new GenericException("Невірний емейль чи пароль");
+        }
 
         User user = userService.getUserByEmail(request.getEmail());
         String token = jwtTokenService.generateToken(request.getEmail(), user.getRole().name());

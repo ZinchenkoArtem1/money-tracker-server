@@ -1,6 +1,7 @@
 package com.zinchenko.monobank;
 
 import com.zinchenko.RandomGenerator;
+import com.zinchenko.admin.category.CategoryService;
 import com.zinchenko.monobank.domain.MonobankData;
 import com.zinchenko.monobank.dto.ClientAccountResponse;
 import com.zinchenko.monobank.integration.dto.AccountResponse;
@@ -10,6 +11,7 @@ import com.zinchenko.wallet.domain.Wallet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
@@ -21,9 +23,12 @@ class MonobankConvertorTest extends RandomGenerator {
 
     private MonobankConvertor monobankConvertor;
 
+    @Mock
+    private CategoryService categoryService;
+
     @BeforeEach
     void setUp() {
-        monobankConvertor = new MonobankConvertor();
+        monobankConvertor = new MonobankConvertor(categoryService);
     }
 
     @Test

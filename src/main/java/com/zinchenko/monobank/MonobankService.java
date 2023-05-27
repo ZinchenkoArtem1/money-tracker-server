@@ -48,8 +48,7 @@ public class MonobankService {
                 .toList();
     }
 
-    public void syncMonobankWallet(SyncWalletTransactionsRequest request) {
-        Integer walletId = request.getWalletId();
+    public void syncMonobankWallet(Integer walletId) {
         MonobankData monobankData = getMonobankData(walletId);
         Instant to = Instant.now();
         AccountResponse accountResponse = getAccount(monobankData.getToken(), monobankData.getAccountId());

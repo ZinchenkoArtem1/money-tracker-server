@@ -1,5 +1,6 @@
 package com.zinchenko.user;
 
+import com.zinchenko.common.error.GenericException;
 import com.zinchenko.security.SecurityUserService;
 import com.zinchenko.user.dto.RegistrationRequest;
 import com.zinchenko.user.domain.Role;
@@ -34,7 +35,7 @@ public class UserService {
 
     public void create(RegistrationRequest registrationRequest) {
         if (userRepository.existsByEmailOrPassword(registrationRequest.getEmail(), registrationRequest.getPassword())) {
-            throw new IllegalStateException("User with this email or password already exist in system");
+            throw new GenericException("Користувач з таким емейлом чи паролем вже зареєстрований в системі");
         } else {
             userRepository.save(
                     new User()

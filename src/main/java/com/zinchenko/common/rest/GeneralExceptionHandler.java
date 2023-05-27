@@ -22,7 +22,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         log.error(ExceptionUtils.getMessage(ex), ex);
 
         return ResponseEntity.internalServerError().body(
-                new BasicErrorResponse("Internal server error")
+                new BasicErrorResponse("Неполадки з сервером")
         );
     }
 
@@ -31,7 +31,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         log.error(ExceptionUtils.getMessage(ex), ex);
 
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
-                new BasicErrorResponse("Access Denied")
+                new BasicErrorResponse("Немає доступу")
         );
     }
 

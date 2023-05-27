@@ -2,6 +2,7 @@ package com.zinchenko.admin.category;
 
 import com.zinchenko.RandomGenerator;
 import com.zinchenko.admin.category.domain.Category;
+import com.zinchenko.admin.category.domain.CategoryMccRepository;
 import com.zinchenko.admin.category.domain.CategoryRepository;
 import com.zinchenko.admin.category.dto.CategoryDto;
 import org.apache.commons.lang3.RandomUtils;
@@ -27,13 +28,15 @@ class CategoryServiceTest extends RandomGenerator {
     private CategoryService categoryService;
 
     @Mock
+    private CategoryMccRepository categoryMccRepository;
+    @Mock
     private CategoryRepository categoryRepository;
     @Mock
     private CategoryConvertor categoryConvertor;
 
     @BeforeEach
     void setUp() {
-        this.categoryService = new CategoryService(categoryConvertor, categoryRepository);
+        this.categoryService = new CategoryService(categoryConvertor, categoryRepository, categoryMccRepository);
     }
 
     @Test
