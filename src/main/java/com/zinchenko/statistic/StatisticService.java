@@ -68,14 +68,14 @@ public class StatisticService {
 
     private List<StatisticDto> generateStatistic(List<Transaction> transactions) {
         long sum = transactions.stream()
-                .mapToLong(Transaction::getAmountInCents)
+                .mapToLong(Transaction::getAmountInCentsUah)
                 .sum();
 
         return transactions.stream()
                 .collect(Collectors.groupingBy(
                                 t -> t.getCategory().getName(),
                                 Collectors.collectingAndThen(
-                                        Collectors.summingLong(Transaction::getAmountInCents),
+                                        Collectors.summingLong(Transaction::getAmountInCentsUah),
                                         categorySum -> BigDecimal.valueOf(
                                                 categorySum.doubleValue() / sum
                                         ).setScale(2, RoundingMode.DOWN)

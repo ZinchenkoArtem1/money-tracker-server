@@ -14,7 +14,7 @@ public class GetStatisticRequest {
     private Long from = Instant.now().minus(30, ChronoUnit.DAYS).getEpochSecond();
 
     @JsonProperty("to")
-    private Long to = Instant.now().getEpochSecond();
+    private Long to = Instant.now().plus(1, ChronoUnit.SECONDS).getEpochSecond();
 
     public Integer getWalletId() {
         return walletId;

@@ -22,6 +22,9 @@ public class Transaction {
     @Column(name = "amount_in_cents")
     private Long amountInCents;
 
+    @Column(name = "amount_in_cents_uah")
+    private Long amountInCentsUah;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
@@ -56,6 +59,15 @@ public class Transaction {
 
     public Transaction setAmountInCents(Long amountInCents) {
         this.amountInCents = amountInCents;
+        return this;
+    }
+
+    public Long getAmountInCentsUah() {
+        return amountInCentsUah;
+    }
+
+    public Transaction setAmountInCentsUah(Long amountInCentsUah) {
+        this.amountInCentsUah = amountInCentsUah;
         return this;
     }
 

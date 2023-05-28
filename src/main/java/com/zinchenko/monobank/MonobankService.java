@@ -103,6 +103,8 @@ public class MonobankService {
                 .map(st -> monobankConvertor.fromMonobankTransaction(st, wallet))
                 .toList();
 
-        transactionService.saveAll(transactions);
+        if (!statements.isEmpty()) {
+            transactionService.saveAll(transactions);
+        }
     }
 }

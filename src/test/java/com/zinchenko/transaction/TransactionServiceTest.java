@@ -1,6 +1,8 @@
 package com.zinchenko.transaction;
 
 import com.zinchenko.RandomGenerator;
+import com.zinchenko.monobank.CurrencyRateHolder;
+import com.zinchenko.monobank.integration.dto.CurrencyRate;
 import com.zinchenko.transaction.domain.Transaction;
 import com.zinchenko.transaction.domain.TransactionRepository;
 import com.zinchenko.transaction.dto.TransactionDto;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,12 +32,14 @@ class TransactionServiceTest extends RandomGenerator {
     private TransactionConvertor transactionConvertor;
     @Mock
     private UserService userService;
+    @Mock
+    private CurrencyRateHolder currencyRateHolder;
 
     private TransactionService transactionService;
 
     @BeforeEach
     void setUp() {
-        transactionService = new TransactionService(transactionRepository, transactionConvertor, userService);
+        transactionService = new TransactionService(transactionRepository, transactionConvertor, userService, currencyRateHolder);
     }
 
     @Test
@@ -106,18 +111,32 @@ class TransactionServiceTest extends RandomGenerator {
     @Test
     void saveAllTest() {
         Transaction transaction = random(Transaction.class);
+        CurrencyRate currencyRate = random(CurrencyRate.class);
+
+        when(currencyRateHolder.getCurrencyRate(transaction.getWallet().getCurrency())).thenReturn(currencyRate);
 
         transactionService.saveAll(List.of(transaction));
 
+        assertEquals(
+                BigDecimal.valueOf(currencyRate.getRateBuy() * transaction.getAmountInCents().doubleValue()).longValue(),
+                transaction.getAmountInCentsUah()
+        );
         verify(transactionRepository).saveAll(List.of(transaction));
     }
 
     @Test
     void saveTest() {
         Transaction transaction = random(Transaction.class);
+        CurrencyRate currencyRate = random(CurrencyRate.class);
+
+        when(currencyRateHolder.getCurrencyRate(transaction.getWallet().getCurrency())).thenReturn(currencyRate);
 
         transactionService.save(transaction);
 
+        assertEquals(
+                BigDecimal.valueOf(currencyRate.getRateBuy() * transaction.getAmountInCents().doubleValue()).longValue(),
+                transaction.getAmountInCentsUah()
+        );
         verify(transactionRepository).save(transaction);
     }
 
