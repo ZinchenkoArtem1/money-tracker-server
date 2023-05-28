@@ -4,7 +4,6 @@ import com.zinchenko.monobank.domain.MonobankData;
 import com.zinchenko.monobank.domain.MonobankDataRepository;
 import com.zinchenko.monobank.dto.ClientAccountRequest;
 import com.zinchenko.monobank.dto.ClientAccountResponse;
-import com.zinchenko.monobank.dto.SyncWalletTransactionsRequest;
 import com.zinchenko.monobank.integration.MonobankClient;
 import com.zinchenko.monobank.integration.dto.AccountResponse;
 import com.zinchenko.monobank.integration.dto.GetClientInfoResponse;

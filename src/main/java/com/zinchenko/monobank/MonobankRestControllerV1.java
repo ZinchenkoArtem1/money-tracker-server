@@ -3,7 +3,6 @@ package com.zinchenko.monobank;
 
 import com.zinchenko.monobank.dto.ClientAccountRequest;
 import com.zinchenko.monobank.dto.ClientAccountResponse;
-import com.zinchenko.monobank.dto.SyncWalletTransactionsRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
