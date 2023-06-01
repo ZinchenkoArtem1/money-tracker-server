@@ -19,7 +19,7 @@ public class ManualWalletService {
 
     public void saveManualWallet(CreateWalletRequest request) {
         walletService.save(
-                request.getName(), currencyService.getCurrency(request.getCurrencyId()),
+                request.getName(), currencyService.getCurrencyById(request.getCurrencyId()),
                 request.getActualBalanceInUnits(), WalletType.MANUAL
         );
     }

@@ -55,6 +55,9 @@ public class TransactionService {
     }
 
     public void saveAll(List<Transaction> transactions) {
+        if (transactions.isEmpty()) {
+            return;
+        }
         CurrencyRate currencyRate = currencyRateHolder.getCurrencyRate(
                 transactions.stream().findAny().orElseThrow().getWallet().getCurrency()
         );
@@ -70,6 +73,10 @@ public class TransactionService {
 
     public void delete(Integer transactionId) {
         transactionRepository.deleteById(transactionId);
+    }
+
+    public Transaction getNewestTransaction(Integer walletId) {
+        return transactionRepository.getNewestTransaction(walletId);
     }
 
     private Long calcAmountInUah(Long amountInCents, CurrencyRate currencyRate) {

@@ -14,4 +14,8 @@ public class MoneyConvertor {
     public Long toCents(Double units) {
         return BigDecimal.valueOf(units).movePointRight(2).longValue();
     }
+
+    public Long toCents(String units) {
+        return new BigDecimal(units).movePointRight(2).longValue();
+    }
 }

@@ -4,7 +4,10 @@ package com.zinchenko.admin.currency;
 import com.zinchenko.admin.currency.dto.CurrencyDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -28,26 +31,5 @@ public class CurrencyRestControllerV1 {
     @PreAuthorize("hasAuthority('user:all')")
     public ResponseEntity<CurrencyDto> getById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(currencyService.getCurrencyDto(id));
-    }
-
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('admin:write')")
-    public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) {
-        currencyService.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping
-    @PreAuthorize("hasAuthority('admin:write')")
-    public ResponseEntity<Void> create(@RequestBody CurrencyDto currencyDto) {
-        currencyService.create(currencyDto);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/edit")
-    @PreAuthorize("hasAuthority('admin:write')")
-    public ResponseEntity<Void> update(@RequestBody CurrencyDto currencyDto) {
-        currencyService.update(currencyDto);
-        return ResponseEntity.ok().build();
     }
 }

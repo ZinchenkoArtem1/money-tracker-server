@@ -35,7 +35,7 @@ class ManualWalletServiceTest extends RandomGenerator {
         CreateWalletRequest request = random(CreateWalletRequest.class);
         Currency currency = random(Currency.class);
 
-        when(currencyService.getCurrency(request.getCurrencyId())).thenReturn(currency);
+        when(currencyService.getCurrencyById(request.getCurrencyId())).thenReturn(currency);
         manualWalletService.saveManualWallet(request);
 
         verify(walletService).save(request.getName(), currency, request.getActualBalanceInUnits(), WalletType.MANUAL);

@@ -15,7 +15,6 @@ import java.time.Instant;
 @Component
 public class MonobankConvertor {
 
-    private static final Category DEFAULT_CATEGORY = new Category().setCategoryId(1);
     private final CategoryService categoryService;
 
     public MonobankConvertor(CategoryService categoryService) {
@@ -46,7 +45,6 @@ public class MonobankConvertor {
     }
 
     private Category mapCategory(Integer mcc) {
-        return categoryService.findCategoryByMcc(mcc)
-                .orElse(DEFAULT_CATEGORY);
+        return categoryService.getCategoryByMonobankMcc(mcc);
     }
 }

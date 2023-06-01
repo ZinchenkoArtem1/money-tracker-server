@@ -29,14 +29,4 @@ class CategoryConvertorTest extends RandomGenerator {
         assertEquals(category.getCategoryId(), categoryDto.getId());
         assertEquals(category.getName(), categoryDto.getName());
     }
-
-    @Test
-    void fromDtoTest() {
-        CategoryDto categoryDto = random(CategoryDto.class);
-
-        Category category = categoryConvertor.fromDto(categoryDto);
-
-        assertEquals(categoryDto.getId(), category.getCategoryId());
-        assertEquals(categoryDto.getName(), category.getName());
-    }
 }

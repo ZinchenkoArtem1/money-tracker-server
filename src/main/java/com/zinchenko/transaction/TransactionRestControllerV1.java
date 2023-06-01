@@ -3,6 +3,7 @@ package com.zinchenko.transaction;
 
 import com.zinchenko.manual.ManualTransactionService;
 import com.zinchenko.monobank.MonobankTransactionService;
+import com.zinchenko.privatbank.PrivatBankService;
 import com.zinchenko.transaction.dto.TransactionDto;
 import com.zinchenko.wallet.domain.WalletType;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,14 @@ public class TransactionRestControllerV1 {
     private final TransactionService transactionService;
     private final ManualTransactionService manualTransactionService;
     private final MonobankTransactionService monobankTransactionService;
+    private final PrivatBankService privatBankService;
 
     public TransactionRestControllerV1(TransactionService transactionService, ManualTransactionService manualTransactionService,
-                                       MonobankTransactionService monobankTransactionService) {
+                                       MonobankTransactionService monobankTransactionService, PrivatBankService privatBankService) {
         this.transactionService = transactionService;
         this.manualTransactionService = manualTransactionService;
         this.monobankTransactionService = monobankTransactionService;
+        this.privatBankService = privatBankService;
     }
 
     @GetMapping
@@ -57,8 +60,10 @@ public class TransactionRestControllerV1 {
             manualTransactionService.update(transactionDto);
         } else if (transactionDto.getWalletType() == WalletType.MONOBANK) {
             monobankTransactionService.update(transactionDto);
+        } else if (transactionDto.getWalletType() == WalletType.PRIVATBANK) {
+            privatBankService.updateTransaction(transactionDto);
         } else {
-            throw new IllegalStateException();
+            throw new IllegalStateException("Not supported wallet file");
         }
         return ResponseEntity.ok().build();
     }

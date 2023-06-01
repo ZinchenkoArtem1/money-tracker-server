@@ -10,14 +10,7 @@ public class CurrencyConvertor {
     public CurrencyDto toDto(Currency currency) {
         return new CurrencyDto()
                 .setId(currency.getCurrencyId())
-                .setName(currency.getName())
+                .setName(currency.getNameEng())
                 .setCode(currency.getCode());
-    }
-
-    public Currency fromDto(CurrencyDto currencyDto) {
-        return new Currency()
-                .setCurrencyId(currencyDto.getId())
-                .setName(currencyDto.getName())
-                .setCode(currencyDto.getCode());
     }
 }

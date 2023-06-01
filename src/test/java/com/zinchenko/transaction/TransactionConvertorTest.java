@@ -31,7 +31,7 @@ class TransactionConvertorTest extends RandomGenerator {
         assertEquals(transaction.getAmountInCents().doubleValue() / 100, transactionDto.getAmountInUnits());
         assertEquals(transaction.getCategory().getCategoryId(), transactionDto.getCategoryId());
         assertEquals(transaction.getCategory().getName(), transactionDto.getCategoryName());
-        assertEquals(transaction.getWallet().getCurrency().getName(), transactionDto.getCurrencyName());
+        assertEquals(transaction.getWallet().getCurrency().getNameEng(), transactionDto.getCurrencyName());
         assertEquals(transaction.getWallet().getWalletId(), transactionDto.getWalletId());
         assertEquals(transaction.getDescription(), transactionDto.getDescription());
         assertEquals(transaction.getWallet().getWalletType(), transactionDto.getWalletType());

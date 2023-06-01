@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CategoryMccRepository extends JpaRepository<CategoryMcc, Integer> {
+public interface CategoryMonobankRepository extends JpaRepository<CategoryMonobank, Integer> {
 
-    Optional<CategoryMcc> findByMcc(Integer mcc);
+    Optional<CategoryMonobank> findByMcc(Integer mcc);
 
 }

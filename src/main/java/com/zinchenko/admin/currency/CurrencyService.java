@@ -6,6 +6,7 @@ import com.zinchenko.admin.currency.dto.CurrencyDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class CurrencyService {
@@ -25,10 +26,10 @@ public class CurrencyService {
     }
 
     public CurrencyDto getCurrencyDto(Integer id) {
-        return currencyConvertor.toDto(getCurrency(id));
+        return currencyConvertor.toDto(getCurrencyById(id));
     }
 
-    public Currency getCurrency(Integer id) {
+    public Currency getCurrencyById(Integer id) {
         return currencyRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Currency with id [%s] not found".formatted(id))
                 );
@@ -40,30 +41,9 @@ public class CurrencyService {
                 );
     }
 
-    public void create(CurrencyDto currencyDto) {
-        if (currencyDto.getId() != null) {
-            throw new IllegalStateException("Request body must not contain id for the create currency operation");
-        } else {
-            currencyRepository.save(currencyConvertor.fromDto(currencyDto));
-        }
-    }
-
-    public void update(CurrencyDto currencyDto) {
-        Currency currency = getCurrency(currencyDto.getId());
-        currency.setName(currencyDto.getName());
-        currency.setCode(currencyDto.getCode());
-
-        currencyRepository.save(currency);
-    }
-
-    public void deleteById(Integer id) {
-        checkExist(id);
-        currencyRepository.deleteById(id);
-    }
-
-    private void checkExist(Integer id) {
-        if (!currencyRepository.existsById(id)) {
-            throw new IllegalStateException("Currency with id [%s] not found".formatted(id));
-        }
+    public Currency getCurrencyByNameUkr(String nameUkr) {
+        return currencyRepository.findByNameUkr(nameUkr.toUpperCase(Locale.ROOT))
+                .orElseThrow(() -> new IllegalStateException("Currency with name ukr [%s] not found".formatted(nameUkr))
+                );
     }
 }

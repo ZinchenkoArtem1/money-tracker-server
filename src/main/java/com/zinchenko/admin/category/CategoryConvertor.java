@@ -12,10 +12,4 @@ public class CategoryConvertor {
                 .setId(category.getCategoryId())
                 .setName(category.getName());
     }
-
-    public Category fromDto(CategoryDto categoryDto) {
-        return new Category()
-                .setCategoryId(categoryDto.getId())
-                .setName(categoryDto.getName());
-    }
 }

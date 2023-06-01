@@ -33,7 +33,7 @@ public class ManualTransactionService {
         if (transactionDto.getId() != null) {
             throw new IllegalStateException("Request body must not contain id for the create transaction operation");
         } else {
-            Category category = categoryService.getCategory(transactionDto.getCategoryId());
+            Category category = categoryService.getCategoryById(transactionDto.getCategoryId());
             Wallet wallet = walletService.getWallet(transactionDto.getWalletId());
             Transaction transaction = manualConvertor.toManualTransaction(transactionDto, category, wallet);
             walletService.updateBalance(transactionDto.getWalletId(), wallet.getActualBalanceInCents() + transaction.getAmountInCents());
@@ -54,7 +54,7 @@ public class ManualTransactionService {
 
     public void update(TransactionDto transactionDto) {
         Transaction transaction = transactionService.getTransaction(transactionDto.getId());
-        Category category = categoryService.getCategory(transactionDto.getCategoryId());
+        Category category = categoryService.getCategoryById(transactionDto.getCategoryId());
         Long transactionAmountInCents = moneyConvertor.toCents(transactionDto.getAmountInUnits());
 
         walletService.updateBalance(

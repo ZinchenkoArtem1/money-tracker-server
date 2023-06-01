@@ -3,16 +3,16 @@ package com.zinchenko.admin.category.domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "category_mcc")
-public class CategoryMcc {
+@Table(name = "category_privatbank")
+public class CategoryPrivatbank {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_mcc_id")
+    @Column(name = "category_privatbank_id")
     private Integer categoryMccId;
 
-    @Column(name = "mcc")
-    private Integer mcc;
+    @Column(name = "name")
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
@@ -22,17 +22,17 @@ public class CategoryMcc {
         return categoryMccId;
     }
 
-    public CategoryMcc setCategoryMccId(Integer categoryMccId) {
+    public CategoryPrivatbank setCategoryMccId(Integer categoryMccId) {
         this.categoryMccId = categoryMccId;
         return this;
     }
 
-    public Integer getMcc() {
-        return mcc;
+    public String getName() {
+        return name;
     }
 
-    public CategoryMcc setMcc(Integer mcc) {
-        this.mcc = mcc;
+    public CategoryPrivatbank setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -40,7 +40,7 @@ public class CategoryMcc {
         return category;
     }
 
-    public CategoryMcc setCategory(Category category) {
+    public CategoryPrivatbank setCategory(Category category) {
         this.category = category;
         return this;
     }

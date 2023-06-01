@@ -29,3 +29,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: changes/10-add-default-users.sql
+  - include:
+      relativeToChangelogFile: true
+      file: changes/11-add-privatbank-categories.sql

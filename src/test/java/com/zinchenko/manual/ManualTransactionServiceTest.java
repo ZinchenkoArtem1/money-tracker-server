@@ -56,7 +56,7 @@ class ManualTransactionServiceTest extends RandomGenerator {
         Wallet wallet = random(Wallet.class);
         Transaction transaction = random(Transaction.class);
 
-        when(categoryService.getCategory(transactionDto.getCategoryId())).thenReturn(category);
+        when(categoryService.getCategoryById(transactionDto.getCategoryId())).thenReturn(category);
         when(walletService.getWallet(transactionDto.getWalletId())).thenReturn(wallet);
         when(manualConvertor.toManualTransaction(transactionDto, category, wallet)).thenReturn(transaction);
 
@@ -95,7 +95,7 @@ class ManualTransactionServiceTest extends RandomGenerator {
         Category category = random(Category.class);
 
         when(transactionService.getTransaction(transactionDto.getId())).thenReturn(transaction);
-        when(categoryService.getCategory(transactionDto.getCategoryId())).thenReturn(category);
+        when(categoryService.getCategoryById(transactionDto.getCategoryId())).thenReturn(category);
 
         manualTransactionService.update(transactionDto);
 

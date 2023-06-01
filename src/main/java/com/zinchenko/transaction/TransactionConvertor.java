@@ -22,7 +22,7 @@ public class TransactionConvertor {
                 .setCategoryName(transaction.getCategory().getName())
                 .setDescription(transaction.getDescription())
                 .setWalletId(transaction.getWallet().getWalletId())
-                .setCurrencyName(transaction.getWallet().getCurrency().getName())
+                .setCurrencyName(transaction.getWallet().getCurrency().getNameEng())
                 .setWalletType(transaction.getWallet().getWalletType());
     }
 }

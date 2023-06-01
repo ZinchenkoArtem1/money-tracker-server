@@ -20,7 +20,7 @@ public class MonobankTransactionService {
 
     public void update(TransactionDto transactionDto) {
         Transaction transaction = transactionService.getTransaction(transactionDto.getId());
-        Category category = categoryService.getCategory(transactionDto.getCategoryId());
+        Category category = categoryService.getCategoryById(transactionDto.getCategoryId());
         transaction.setCategory(category);
 
         transactionService.save(transaction);

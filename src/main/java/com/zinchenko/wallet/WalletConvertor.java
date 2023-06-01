@@ -24,7 +24,7 @@ public class WalletConvertor {
                 .setName(wallet.getName())
                 .setCurrencyId(wallet.getCurrency().getCurrencyId())
                 .setCurrencyCode(wallet.getCurrency().getCode())
-                .setCurrencyName(wallet.getCurrency().getName())
+                .setCurrencyName(wallet.getCurrency().getNameEng())
                 .setWalletType(wallet.getWalletType());
     }
 

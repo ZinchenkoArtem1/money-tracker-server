@@ -1,5 +1,6 @@
 package com.zinchenko.admin.currency;
 
+import com.zinchenko.RandomGenerator;
 import com.zinchenko.admin.currency.domain.Currency;
 import com.zinchenko.admin.currency.domain.CurrencyRepository;
 import com.zinchenko.admin.currency.dto.CurrencyDto;
@@ -12,16 +13,17 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-class CurrencyServiceTest {
+class CurrencyServiceTest extends RandomGenerator {
 
     private CurrencyService currencyService;
 
@@ -37,10 +39,10 @@ class CurrencyServiceTest {
 
     @Test
     void findAllNotEmptyTest() {
-        Currency currency1 = mock(Currency.class);
-        Currency currency2 = mock(Currency.class);
-        CurrencyDto currencyDto1 = mock(CurrencyDto.class);
-        CurrencyDto currencyDto2 = mock(CurrencyDto.class);
+        Currency currency1 = random(Currency.class);
+        Currency currency2 = random(Currency.class);
+        CurrencyDto currencyDto1 = random(CurrencyDto.class);
+        CurrencyDto currencyDto2 = random(CurrencyDto.class);
 
         when(currencyRepository.findAll()).thenReturn(List.of(currency1, currency2));
         when(currencyConvertor.toDto(currency1)).thenReturn(currencyDto1);
@@ -48,7 +50,7 @@ class CurrencyServiceTest {
 
         List<CurrencyDto> currenciesDto = currencyService.findAll();
 
-        Assertions.assertFalse(currenciesDto.isEmpty());
+        Assertions.assertEquals(2, currenciesDto.size());
         Assertions.assertIterableEquals(List.of(currencyDto1, currencyDto2), currenciesDto);
     }
 
@@ -63,8 +65,8 @@ class CurrencyServiceTest {
     @Test
     void getCurrencyDtoSuccessTest() {
         Integer id = RandomUtils.nextInt();
-        Currency currency = mock(Currency.class);
-        CurrencyDto currencyDto = mock(CurrencyDto.class);
+        Currency currency = random(Currency.class);
+        CurrencyDto currencyDto = random(CurrencyDto.class);
 
         when(currencyRepository.findById(id)).thenReturn(Optional.of(currency));
         when(currencyConvertor.toDto(currency)).thenReturn(currencyDto);
@@ -79,84 +81,65 @@ class CurrencyServiceTest {
         when(currencyRepository.findById(id)).thenReturn(Optional.empty());
         verifyNoInteractions(currencyConvertor);
 
-        IllegalStateException exc = assertThrows(IllegalStateException.class, () -> currencyService.getCurrency(id));
+        IllegalStateException exc = assertThrows(IllegalStateException.class, () -> currencyService.getCurrencyDto(id));
         assertEquals("Currency with id [%s] not found".formatted(id), exc.getMessage());
     }
 
     @Test
-    void createSuccessTest() {
-        Currency currency = mock(Currency.class);
-        CurrencyDto currencyDto = mock(CurrencyDto.class);
+    void getCurrencyByIdSuccessTest() {
+        Currency currency = random(Currency.class);
 
-        when(currencyDto.getId()).thenReturn(null);
-        when(currencyConvertor.fromDto(currencyDto)).thenReturn(currency);
+        when(currencyRepository.findById(currency.getCurrencyId())).thenReturn(Optional.of(currency));
 
-        currencyService.create(currencyDto);
-
-        verify(currencyRepository).save(currency);
+        assertEquals(currency, currencyService.getCurrencyById(currency.getCurrencyId()));
     }
 
     @Test
-    void createWithIdInRequestTest() {
-        CurrencyDto currencyDto = mock(CurrencyDto.class);
-
-        when(currencyDto.getId()).thenReturn(RandomUtils.nextInt());
-        IllegalStateException exc = assertThrows(IllegalStateException.class, () -> currencyService.create(currencyDto));
-
-        assertEquals("Request body must not contain id for the create currency operation", exc.getMessage());
-        verifyNoInteractions(currencyConvertor);
-    }
-
-    @Test
-    void updateExistTest() {
+    void getCurrencyByIdFailedTest() {
         Integer id = RandomUtils.nextInt();
-        String newName = UUID.randomUUID().toString();
-        Integer newCode = RandomUtils.nextInt();
-        Currency currency = mock(Currency.class);
-        CurrencyDto currencyDto = mock(CurrencyDto.class);
 
-        when(currencyDto.getId()).thenReturn(id);
-        when(currencyDto.getName()).thenReturn(newName);
-        when(currencyDto.getCode()).thenReturn(newCode);
-        when(currencyRepository.findById(id)).thenReturn(Optional.of(currency));
-
-        currencyService.update(currencyDto);
-
-        verify(currency).setName(newName);
-        verify(currency).setCode(newCode);
-        verify(currencyRepository).save(currency);
-    }
-
-    @Test
-    void updateNotExistTest() {
-        Integer id = RandomUtils.nextInt();
-        CurrencyDto currencyDto = mock(CurrencyDto.class);
-
-        when(currencyDto.getId()).thenReturn(id);
         when(currencyRepository.findById(id)).thenReturn(Optional.empty());
+        verifyNoInteractions(currencyConvertor);
 
-        IllegalStateException exc = assertThrows(IllegalStateException.class, () -> currencyService.update(currencyDto));
+        IllegalStateException exc = assertThrows(IllegalStateException.class, () -> currencyService.getCurrencyById(id));
         assertEquals("Currency with id [%s] not found".formatted(id), exc.getMessage());
     }
 
     @Test
-    void deleteByIdNotExistTest() {
-        Integer id = RandomUtils.nextInt();
+    void getCurrencyByCodeSuccessTest() {
+        Currency currency = random(Currency.class);
 
-        when(currencyRepository.existsById(id)).thenReturn(false);
+        when(currencyRepository.findByCode(currency.getCode())).thenReturn(Optional.of(currency));
 
-        IllegalStateException exc = assertThrows(IllegalStateException.class, () -> currencyService.deleteById(id));
-        assertEquals("Currency with id [%s] not found".formatted(id), exc.getMessage());
+        assertEquals(currency, currencyService.getCurrencyByCode(currency.getCode()));
     }
 
     @Test
-    void deleteByIdSuccessTest() {
+    void getCurrencyByCodeFailedTest() {
         Integer id = RandomUtils.nextInt();
 
-        when(currencyRepository.existsById(id)).thenReturn(true);
+        when(currencyRepository.findByCode(id)).thenReturn(Optional.empty());
 
-        currencyService.deleteById(id);
+        IllegalStateException exc = assertThrows(IllegalStateException.class, () -> currencyService.getCurrencyByCode(id));
+        assertEquals("Currency with code [%s] not found".formatted(id), exc.getMessage());
+    }
 
-        verify(currencyRepository).deleteById(id);
+    @Test
+    void getCurrencyByNameUkrSuccessTest() {
+        Currency currency = random(Currency.class);
+
+        when(currencyRepository.findByNameUkr(currency.getNameUkr().toUpperCase(Locale.ROOT))).thenReturn(Optional.of(currency));
+
+        assertEquals(currency, currencyService.getCurrencyByNameUkr(currency.getNameUkr()));
+    }
+
+    @Test
+    void getCurrencyByNameUkrFailedTest() {
+        String nameUkr = random(String.class);
+
+        when(currencyRepository.findByNameUkr(nameUkr.toUpperCase(Locale.ROOT))).thenReturn(Optional.empty());
+
+        IllegalStateException exc = assertThrows(IllegalStateException.class, () -> currencyService.getCurrencyByNameUkr(nameUkr));
+        assertEquals("Currency with name ukr [%s] not found".formatted(nameUkr), exc.getMessage());
     }
 }

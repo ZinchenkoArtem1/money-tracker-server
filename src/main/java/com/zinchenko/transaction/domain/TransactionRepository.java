@@ -39,4 +39,12 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
             and t.createdAt <= :to
             """)
     List<Transaction> findAllByUserInPeriod(String email, Instant from, Instant to);
+
+    @Query("""
+            select t from Transaction t
+            where t.wallet.id = :walletId
+            order by createdAt desc
+            limit 1
+            """)
+    Transaction getNewestTransaction(Integer walletId);
 }

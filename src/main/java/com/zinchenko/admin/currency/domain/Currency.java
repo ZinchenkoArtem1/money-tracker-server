@@ -13,8 +13,11 @@ public class Currency {
     @Column(name = "currency_id")
     private Integer currencyId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "name_eng")
+    private String nameEng;
+
+    @Column(name = "name_ukr")
+    private String nameUkr;
 
     @Column(name = "code")
     private Integer code;
@@ -24,7 +27,7 @@ public class Currency {
 
     public Currency(Integer currencyId, String name) {
         this.currencyId = currencyId;
-        this.name = name;
+        this.nameEng = name;
     }
 
     public Integer getCurrencyId() {
@@ -36,12 +39,21 @@ public class Currency {
         return this;
     }
 
-    public String getName() {
-        return name;
+    public String getNameEng() {
+        return nameEng;
     }
 
-    public Currency setName(String name) {
-        this.name = name;
+    public Currency setNameEng(String nameEng) {
+        this.nameEng = nameEng;
+        return this;
+    }
+
+    public String getNameUkr() {
+        return nameUkr;
+    }
+
+    public Currency setNameUkr(String nameUkr) {
+        this.nameUkr = nameUkr;
         return this;
     }
 

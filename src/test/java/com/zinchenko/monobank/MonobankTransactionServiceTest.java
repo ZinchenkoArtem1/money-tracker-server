@@ -37,7 +37,7 @@ class MonobankTransactionServiceTest extends RandomGenerator {
         Transaction transaction = random(Transaction.class);
         Category category = random(Category.class);
 
-        when(categoryService.getCategory(transactionDto.getCategoryId())).thenReturn(category);
+        when(categoryService.getCategoryById(transactionDto.getCategoryId())).thenReturn(category);
         when(transactionService.getTransaction(transactionDto.getId())).thenReturn(transaction);
 
         monobankTransactionService.update(transactionDto);

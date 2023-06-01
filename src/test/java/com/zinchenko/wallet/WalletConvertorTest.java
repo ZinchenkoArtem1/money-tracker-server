@@ -27,7 +27,7 @@ class WalletConvertorTest {
     private static final Currency CURRENCY = new Currency()
             .setCurrencyId(CURRENCY_ID)
             .setCode(CURRENCY_CODE)
-            .setName(CURRENCY_NAME);
+            .setNameEng(CURRENCY_NAME);
     private WalletConvertor walletConvertor;
 
     @BeforeEach
