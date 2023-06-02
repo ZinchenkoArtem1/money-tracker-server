@@ -83,14 +83,18 @@ class PrivatBankServiceTest extends RandomGenerator {
         Transaction transaction2 = new Transaction().setCreatedAt(instant1.plus(1, ChronoUnit.DAYS)).setAmountInCents(150L);
         List<Transaction> transactions = List.of(transaction1, transaction2);
         ArgumentCaptor<List<Transaction>> listArgumentCaptor = ArgumentCaptor.forClass(List.class);
+        Long newBalance = RandomUtils.nextLong();
 
         when(privatBankExelParser.parseExelFile(file)).thenReturn(data);
         when(walletService.getWallet(walletId)).thenReturn(wallet);
         when(privatBankConvertor.convertTransactions(data, wallet)).thenReturn(transactions);
+        when(transactionService.getNewestTransaction(walletId)).thenReturn(transaction1);
+        when(privatBankConvertor.getBalance(data)).thenReturn(newBalance);
         when(wallet.getTransactions()).thenReturn(List.of(transaction1));
 
         privatBankService.updateWallet(file, walletId);
 
+        verify(wallet).setActualBalanceInCents(newBalance);
         verify(transactionService).saveAll(listArgumentCaptor.capture());
         assertIterableEquals(List.of(transaction2), listArgumentCaptor.getValue());
     }
@@ -104,7 +108,7 @@ class PrivatBankServiceTest extends RandomGenerator {
         when(transactionService.getTransaction(transactionDto.getId())).thenReturn(transaction);
         when(categoryService.getCategoryById(transactionDto.getCategoryId())).thenReturn(category);
 
-        privatBankService.updateTransaction(transactionDto);
+        privatBankService.updateTransactionCategory(transactionDto);
 
         verify(transaction).setCategory(category);
         verify(transactionService).save(transaction);

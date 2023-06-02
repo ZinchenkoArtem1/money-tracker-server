@@ -1,8 +1,11 @@
 package com.zinchenko.manual;
 
 import com.zinchenko.RandomGenerator;
+import com.zinchenko.admin.category.CategoryService;
 import com.zinchenko.admin.currency.CurrencyService;
 import com.zinchenko.admin.currency.domain.Currency;
+import com.zinchenko.common.money.MoneyConvertor;
+import com.zinchenko.transaction.TransactionService;
 import com.zinchenko.wallet.WalletService;
 import com.zinchenko.wallet.domain.WalletType;
 import com.zinchenko.wallet.dto.CreateWalletRequest;
@@ -16,18 +19,28 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ManualWalletServiceTest extends RandomGenerator {
+class ManualServiceTest extends RandomGenerator {
 
+    @Mock
+    private TransactionService transactionService;
     @Mock
     private WalletService walletService;
     @Mock
+    private ManualConvertor manualConvertor;
+    @Mock
+    private MoneyConvertor moneyConvertor;
+    @Mock
+    private CategoryService categoryService;
+    @Mock
     private CurrencyService currencyService;
 
-    private ManualWalletService manualWalletService;
+    private ManualService manualService;
 
     @BeforeEach
     void setUp() {
-        manualWalletService = new ManualWalletService(walletService, currencyService);
+        manualService = new ManualService(transactionService, categoryService,
+                walletService, manualConvertor,
+                moneyConvertor, currencyService);
     }
 
     @Test
@@ -36,7 +49,7 @@ class ManualWalletServiceTest extends RandomGenerator {
         Currency currency = random(Currency.class);
 
         when(currencyService.getCurrencyById(request.getCurrencyId())).thenReturn(currency);
-        manualWalletService.saveManualWallet(request);
+        manualService.createWallet(request);
 
         verify(walletService).save(request.getName(), currency, request.getActualBalanceInUnits(), WalletType.MANUAL);
     }

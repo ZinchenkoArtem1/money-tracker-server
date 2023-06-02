@@ -1,7 +1,7 @@
 package com.zinchenko.transaction;
 
-import com.zinchenko.monobank.CurrencyRateHolder;
-import com.zinchenko.monobank.integration.dto.CurrencyRate;
+import com.zinchenko.currencyrate.CurrencyRateHolder;
+import com.zinchenko.currencyrate.dto.CurrencyRate;
 import com.zinchenko.transaction.domain.Transaction;
 import com.zinchenko.transaction.domain.TransactionRepository;
 import com.zinchenko.transaction.dto.TransactionDto;
@@ -41,12 +41,6 @@ public class TransactionService {
 
     public TransactionDto getTransactionDto(Integer id) {
         return transactionConvertor.toDto(getTransaction(id));
-    }
-
-    public void checkExist(Integer id) {
-        if (!transactionRepository.existsById(id)) {
-            throw new IllegalStateException("Transaction with id [%s] not found".formatted(id));
-        }
     }
 
     public Transaction getTransaction(Integer id) {

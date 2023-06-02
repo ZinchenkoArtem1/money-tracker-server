@@ -1,8 +1,8 @@
 package com.zinchenko.transaction;
 
 
-import com.zinchenko.manual.ManualTransactionService;
-import com.zinchenko.monobank.MonobankTransactionService;
+import com.zinchenko.manual.ManualService;
+import com.zinchenko.monobank.MonobankService;
 import com.zinchenko.privatbank.PrivatBankService;
 import com.zinchenko.transaction.dto.TransactionDto;
 import com.zinchenko.wallet.domain.WalletType;
@@ -17,15 +17,15 @@ import java.util.List;
 public class TransactionRestControllerV1 {
 
     private final TransactionService transactionService;
-    private final ManualTransactionService manualTransactionService;
-    private final MonobankTransactionService monobankTransactionService;
+    private final ManualService manualService;
+    private final MonobankService monobankService;
     private final PrivatBankService privatBankService;
 
-    public TransactionRestControllerV1(TransactionService transactionService, ManualTransactionService manualTransactionService,
-                                       MonobankTransactionService monobankTransactionService, PrivatBankService privatBankService) {
+    public TransactionRestControllerV1(TransactionService transactionService, ManualService manualService,
+                                       MonobankService monobankService, PrivatBankService privatBankService) {
         this.transactionService = transactionService;
-        this.manualTransactionService = manualTransactionService;
-        this.monobankTransactionService = monobankTransactionService;
+        this.manualService = manualService;
+        this.monobankService = monobankService;
         this.privatBankService = privatBankService;
     }
 
@@ -50,18 +50,18 @@ public class TransactionRestControllerV1 {
     @PostMapping
     @PreAuthorize("hasAuthority('user:all')")
     public void create(@RequestBody TransactionDto transactionDto) {
-        manualTransactionService.create(transactionDto);
+        manualService.createTransaction(transactionDto);
     }
 
     @PostMapping("/edit")
     @PreAuthorize("hasAuthority('user:all')")
     public ResponseEntity<Void> update(@RequestBody TransactionDto transactionDto) {
         if (transactionDto.getWalletType() == WalletType.MANUAL) {
-            manualTransactionService.update(transactionDto);
+            manualService.updateTransaction(transactionDto);
         } else if (transactionDto.getWalletType() == WalletType.MONOBANK) {
-            monobankTransactionService.update(transactionDto);
+            monobankService.updateTransactionCategory(transactionDto);
         } else if (transactionDto.getWalletType() == WalletType.PRIVATBANK) {
-            privatBankService.updateTransaction(transactionDto);
+            privatBankService.updateTransactionCategory(transactionDto);
         } else {
             throw new IllegalStateException("Not supported wallet file");
         }
@@ -71,7 +71,7 @@ public class TransactionRestControllerV1 {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('user:all')")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) {
-        manualTransactionService.deleteById(id);
+        manualService.deleteTransactionById(id);
         return ResponseEntity.ok().build();
     }
 }

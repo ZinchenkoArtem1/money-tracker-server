@@ -1,4 +1,4 @@
-package com.zinchenko.monobank.integration.dto;
+package com.zinchenko.currencyrate.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -76,3 +76,4 @@ public class CurrencyRate {
         return this;
     }
 }
+

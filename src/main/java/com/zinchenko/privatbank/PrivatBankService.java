@@ -58,7 +58,7 @@ public class PrivatBankService {
         transactionService.saveAll(findNewTransactions(wallet.getTransactions(), transactions));
     }
 
-    public void updateTransaction(TransactionDto transactionDto) {
+    public void updateTransactionCategory(TransactionDto transactionDto) {
         Transaction transaction = transactionService.getTransaction(transactionDto.getId());
         Category category = categoryService.getCategoryById(transactionDto.getCategoryId());
         transaction.setCategory(category);

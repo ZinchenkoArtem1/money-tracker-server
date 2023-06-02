@@ -1,8 +1,8 @@
 package com.zinchenko.transaction;
 
 import com.zinchenko.RandomGenerator;
-import com.zinchenko.monobank.CurrencyRateHolder;
-import com.zinchenko.monobank.integration.dto.CurrencyRate;
+import com.zinchenko.currencyrate.CurrencyRateHolder;
+import com.zinchenko.currencyrate.dto.CurrencyRate;
 import com.zinchenko.transaction.domain.Transaction;
 import com.zinchenko.transaction.domain.TransactionRepository;
 import com.zinchenko.transaction.dto.TransactionDto;

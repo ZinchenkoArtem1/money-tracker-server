@@ -1,9 +1,9 @@
-package com.zinchenko.monobank;
+package com.zinchenko.currencyrate;
 
 import com.zinchenko.RandomGenerator;
 import com.zinchenko.admin.currency.domain.Currency;
+import com.zinchenko.currencyrate.dto.CurrencyRate;
 import com.zinchenko.monobank.integration.MonobankClient;
-import com.zinchenko.monobank.integration.dto.CurrencyRate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,7 @@ class CurrencyRateHolderTest extends RandomGenerator {
     private CurrencyRateHolder currencyRateHolder;
 
     @Mock
-    private MonobankClient monobankClient;
+    private CurrencyRateClient currencyRateClient;
 
     private CurrencyRate currencyRate;
 
@@ -29,8 +29,8 @@ class CurrencyRateHolderTest extends RandomGenerator {
     void setUp() {
         currencyRate = random(CurrencyRate.class);
 
-        when(monobankClient.getCurrencyRates()).thenReturn(List.of(currencyRate));
-        currencyRateHolder = new CurrencyRateHolder(monobankClient);
+        when(currencyRateClient.getCurrencyRates()).thenReturn(List.of(currencyRate));
+        currencyRateHolder = new CurrencyRateHolder(currencyRateClient);
     }
 
     @Test

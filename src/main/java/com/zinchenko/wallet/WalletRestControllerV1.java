@@ -1,8 +1,8 @@
 package com.zinchenko.wallet;
 
 
-import com.zinchenko.manual.ManualWalletService;
-import com.zinchenko.monobank.MonobankWalletService;
+import com.zinchenko.manual.ManualService;
+import com.zinchenko.monobank.MonobankService;
 import com.zinchenko.wallet.domain.WalletType;
 import com.zinchenko.wallet.dto.CreateWalletRequest;
 import com.zinchenko.wallet.dto.WalletDto;
@@ -17,14 +17,14 @@ import java.util.List;
 public class WalletRestControllerV1 {
 
     private final WalletService walletService;
-    private final MonobankWalletService monobankWalletService;
-    private final ManualWalletService manualWalletService;
+    private final MonobankService monobankService;
+    private final ManualService manualService;
 
-    public WalletRestControllerV1(WalletService walletService, MonobankWalletService monobankWalletService,
-                                  ManualWalletService manualWalletService) {
+    public WalletRestControllerV1(WalletService walletService, MonobankService monobankService,
+                                  ManualService manualService) {
         this.walletService = walletService;
-        this.monobankWalletService = monobankWalletService;
-        this.manualWalletService = manualWalletService;
+        this.monobankService = monobankService;
+        this.manualService = manualService;
     }
 
     @GetMapping
@@ -43,9 +43,9 @@ public class WalletRestControllerV1 {
     @PreAuthorize("hasAuthority('user:all')")
     public void create(@RequestBody CreateWalletRequest createWalletRequest) {
         if (createWalletRequest.getWalletType() == WalletType.MONOBANK) {
-            monobankWalletService.createMonobankWallet(createWalletRequest);
+            monobankService.createWallet(createWalletRequest);
         } else if (createWalletRequest.getWalletType() == WalletType.MANUAL) {
-            manualWalletService.saveManualWallet(createWalletRequest);
+            manualService.createWallet(createWalletRequest);
         } else {
             throw new IllegalStateException();
         }

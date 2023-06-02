@@ -1,6 +1,5 @@
 package com.zinchenko.monobank.integration;
 
-import com.zinchenko.monobank.integration.dto.CurrencyRate;
 import com.zinchenko.monobank.integration.dto.GetClientInfoResponse;
 import com.zinchenko.monobank.integration.dto.StatementResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,15 +55,6 @@ public class MonobankClient {
                 .header(tokenHeaderName, token)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<StatementResponse>>() {
-                })
-                .block();
-    }
-
-    public List<CurrencyRate> getCurrencyRates() {
-        return webClient.get()
-                .uri(monobankApiUrl + "/bank/currency")
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<CurrencyRate>>() {
                 })
                 .block();
     }

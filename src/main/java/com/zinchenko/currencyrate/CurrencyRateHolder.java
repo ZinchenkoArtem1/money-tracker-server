@@ -1,8 +1,7 @@
-package com.zinchenko.monobank;
+package com.zinchenko.currencyrate;
 
 import com.zinchenko.admin.currency.domain.Currency;
-import com.zinchenko.monobank.integration.MonobankClient;
-import com.zinchenko.monobank.integration.dto.CurrencyRate;
+import com.zinchenko.currencyrate.dto.CurrencyRate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -22,19 +21,19 @@ public class CurrencyRateHolder {
             .setCurrencyCodeB(UAH_CURRENCY_CODE)
             .setRateBuy(1D)
             .setRateSell(1D);
-    private final MonobankClient monobankClient;
+    private final CurrencyRateClient currencyRateClient;
     private List<CurrencyRate> currencyRates;
 
-    public CurrencyRateHolder(MonobankClient monobankClient) {
-        this.monobankClient = monobankClient;
-        currencyRates = monobankClient.getCurrencyRates();
+    public CurrencyRateHolder(CurrencyRateClient currencyRateClient) {
+        this.currencyRateClient = currencyRateClient;
+        currencyRates = currencyRateClient.getCurrencyRates();
     }
 
     // Monobank API update currency rates every 5 minutes
     // This job that fetch updated currencies rate from Monobank API and save in memory
     @Scheduled(initialDelay = 5, fixedDelay = 5, timeUnit = TimeUnit.MINUTES)
     private void updateRates() {
-        currencyRates = monobankClient.getCurrencyRates();
+        currencyRates = currencyRateClient.getCurrencyRates();
     }
 
     public CurrencyRate getCurrencyRate(Currency currency) {
