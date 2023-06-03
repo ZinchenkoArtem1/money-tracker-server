@@ -3,7 +3,6 @@ package com.zinchenko.currencyrate;
 import com.zinchenko.RandomGenerator;
 import com.zinchenko.admin.currency.domain.Currency;
 import com.zinchenko.currencyrate.dto.CurrencyRate;
-import com.zinchenko.monobank.integration.MonobankClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

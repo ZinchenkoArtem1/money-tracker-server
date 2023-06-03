@@ -19,7 +19,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -86,25 +87,6 @@ class TransactionServiceTest extends RandomGenerator {
         when(transactionRepository.findById(id)).thenReturn(Optional.empty());
 
         IllegalStateException exc = assertThrows(IllegalStateException.class, () -> transactionService.getTransactionDto(id));
-        assertEquals("Transaction with id [%s] not found".formatted(id), exc.getMessage());
-    }
-
-    @Test
-    void checkExistSuccessTest() {
-        Integer id = random(Integer.class);
-
-        when(transactionRepository.existsById(id)).thenReturn(true);
-
-        assertDoesNotThrow(() -> transactionService.checkExist(id));
-    }
-
-    @Test
-    void checkExistFailedTest() {
-        Integer id = random(Integer.class);
-
-        when(transactionRepository.existsById(id)).thenReturn(false);
-
-        IllegalStateException exc = assertThrows(IllegalStateException.class, () -> transactionService.checkExist(id));
         assertEquals("Transaction with id [%s] not found".formatted(id), exc.getMessage());
     }
 

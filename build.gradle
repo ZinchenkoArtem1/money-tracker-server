@@ -60,7 +60,7 @@ sonarqube {
     properties {
         property 'sonar.projectKey', 'money-tracker-server'
         property 'sonar.host.url', 'http://localhost:9000'
-        property 'sonar.token', 'sqp_cfbd808c6e8aad6afbce401bcb8de561144d172f'
+        property 'sonar.token', 'sqp_5d2196620085698fdc7ccbc7e1f94faa7c59f1da'
         property 'sonar.language', 'java'
         property 'sonar.core.codeCoveragePlugin', 'jacoco'
         property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/reports/jacoco/jacoco.xml"
