@@ -1,5 +1,6 @@
 insert into Category_Monobank(mcc, category_id) values (5499, 2);
 insert into Category_Monobank(mcc, category_id) values (5331, 2);
+insert into Category_Monobank(mcc, category_id) values (5411, 2);
 insert into Category_Monobank(mcc, category_id) values (7549, 3);
 insert into Category_Monobank(mcc, category_id) values (7538, 3);
 insert into Category_Monobank(mcc, category_id) values (7534, 3);
